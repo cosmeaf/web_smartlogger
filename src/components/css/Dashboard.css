@@ -1,0 +1,15 @@
+/* src/components/css/Dashboard.css */
+
+@import './global.css';
+
+.dashboard-page {
+  min-height: 100vh;
+}
+
+.card {
+  text-align: center;
+}
+
+.clickable-card {
+  cursor: pointer;
+}

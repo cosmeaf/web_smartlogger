@@ -1,0 +1,8 @@
+/* src/components/css/Header.css */
+
+@import './global.css';
+
+.header {
+  width: 100%;
+  height: 60px;
+}

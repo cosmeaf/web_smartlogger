@@ -1,0 +1,7 @@
+/* src/pages/css/Home.css */
+
+@import './global.css';
+
+.home main {
+  flex: 1;
+}

@@ -1,0 +1,21 @@
+/* src/components/css/Devices.css */
+.table-responsive {
+  width: 100%;
+}
+
+.table-sm th, .table-sm td {
+  font-size: 10px; /* Ajuste o tamanho da fonte conforme necessário */
+}
+
+.table-striped tbody tr:nth-of-type(odd) {
+  background-color: rgba(0,0,0,.05);
+}
+
+.button-small {
+  font-size: 12px; /* Ajuste o tamanho do botão */
+  padding: 2px 5px;
+}
+
+.margin-bottom {
+  margin-bottom: 20px; /* Ajuste o valor conforme necessário */
+}

@@ -1,0 +1,19 @@
+/* src/components/css/ErrorBoundary.css */
+
+@import './global.css';
+
+.error-boundary-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 9999;
+}
+
+.error-boundary-container .card {
+  max-width: 400px;
+  width: 100%;
+  text-align: center;
+}

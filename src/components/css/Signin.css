@@ -1,0 +1,12 @@
+/* src/components/css/Signin.css */
+
+@import './global.css';
+
+.signin-page {
+  background-color: #f8f9fa;
+}
+
+.card {
+  max-width: 400px;
+  margin: auto;
+}
