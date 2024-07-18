@@ -14,7 +14,7 @@ const EquipamentModal = ({ show, handleClose, handleSave }) => {
   useEffect(() => {
     const fetchDevices = async () => {
       try {
-        const response = await api.get("/devices/");
+        const response = await api.get("/device/");
         setDevices(response);
       } catch (error) {
         console.error("Failed to fetch devices", error);

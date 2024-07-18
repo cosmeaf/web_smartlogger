@@ -1,63 +1,111 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
-import { Navbar, Nav, NavDropdown, Container } from "react-bootstrap";
 import { useAuth } from "../context/AuthContext";
 import LogoutModal from "./LogoutModal";
 import LoadPage from "./LoadPage";
-import "../components/css/Header.css";
 
 const HeaderLoggedIn = () => {
-  const { authTokens, logoutUser } = useAuth();
+  const { authTokens } = useAuth();
   const [showLogoutModal, setShowLogoutModal] = useState(false);
-  const [loading, setLoading] = useState(false);
+  const [userFullName, setUserFullName] = useState("Guest");
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const dropdownRef = useRef(null);
 
-  const handleLogout = async () => {
-    setLoading(true);
+  useEffect(() => {
+    const fetchData = async () => {
+      if (authTokens && authTokens.user) {
+        const { first_name, last_name } = authTokens.user;
+        const fullName = `${first_name} ${last_name}`.trim();
+        setUserFullName(fullName || "Guest");
+        setLoading(false);
+      } else {
+        setUserFullName("Guest");
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, [authTokens]);
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setDropdownOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
+  const confirmLogout = () => {
     setShowLogoutModal(true);
-    await logoutUser();
-    setLoading(false);
   };
 
-  const username = authTokens?.user || "Guest";
+  const toggleDropdown = () => {
+    setDropdownOpen(!dropdownOpen);
+  };
 
   return (
     <>
       {loading && <LoadPage />}
-      <Navbar bg="dark" variant="dark" expand="lg" className="header">
-        <Container>
-          <Navbar.Brand as={Link} to="/">
-            MyApp
-          </Navbar.Brand>
-          <Navbar.Toggle aria-controls="basic-navbar-nav" />
-          <Navbar.Collapse id="basic-navbar-nav">
-            <Nav className="me-auto">
-              <Nav.Link as={Link} to="/">
-                Home
-              </Nav.Link>
-              <Nav.Link as={Link} to="/about">
-                About
-              </Nav.Link>
-              <Nav.Link as={Link} to="/contact">
-                Contact
-              </Nav.Link>
-            </Nav>
-            <Nav>
-              <NavDropdown title={username} id="basic-nav-dropdown" align="end">
-                <NavDropdown.Item as={Link} to="/profile">
+      <nav className="bg-gray-800 p-2">
+        <div className="container mx-auto flex justify-between items-center h-12">
+          <Link to="/dashboard" className="text-white text-xl font-bold">
+            INJETEC
+          </Link>
+          <div className="relative" ref={dropdownRef}>
+            <button
+              className="text-white focus:outline-none flex items-center text-xs"
+              onClick={toggleDropdown}
+            >
+              <span className="text-0.7rem">{userFullName || "Guest"}</span>
+              <svg
+                className="ml-2 w-4 h-4"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M19 9l-7 7-7-7"
+                ></path>
+              </svg>
+            </button>
+            {dropdownOpen && (
+              <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg z-20">
+                <Link
+                  to="/profile"
+                  className="block px-4 py-2 text-gray-800 hover:bg-gray-200"
+                  onClick={() => setDropdownOpen(false)}
+                >
                   Profile
-                </NavDropdown.Item>
-                <NavDropdown.Item as={Link} to="/setup">
+                </Link>
+                <Link
+                  to="/setup"
+                  className="block px-4 py-2 text-gray-800 hover:bg-gray-200"
+                  onClick={() => setDropdownOpen(false)}
+                >
                   Setup
-                </NavDropdown.Item>
-                <NavDropdown.Divider />
-                <NavDropdown.Item onClick={handleLogout}>
+                </Link>
+                <div className="border-t my-1"></div>
+                <button
+                  onClick={confirmLogout}
+                  className="block w-full text-left px-4 py-2 text-gray-800 hover:bg-gray-200"
+                >
                   Sign Out
-                </NavDropdown.Item>
-              </NavDropdown>
-            </Nav>
-          </Navbar.Collapse>
-        </Container>
-      </Navbar>
+                </button>
+              </div>
+            )}
+          </div>
+        </div>
+      </nav>
       <LogoutModal
         show={showLogoutModal}
         onHide={() => setShowLogoutModal(false)}

@@ -8,7 +8,8 @@ const api = {
   get: driver.get,
   post: driver.post,
   put: driver.put,
-  delete: driver.del,
+  patch: driver.patch,
+  delete: driver.delete,
 };
 
 export default api;

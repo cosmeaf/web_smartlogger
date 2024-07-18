@@ -1,0 +1,560 @@
+
+> reactjs@0.1.0 start
+> cross-env PORT=4000 BROWSER=none react-scripts start
+
+(node:547317) [DEP_WEBPACK_DEV_SERVER_ON_AFTER_SETUP_MIDDLEWARE] DeprecationWarning: 'onAfterSetupMiddleware' option is deprecated. Please use the 'setupMiddlewares' option.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+(node:547317) [DEP_WEBPACK_DEV_SERVER_ON_BEFORE_SETUP_MIDDLEWARE] DeprecationWarning: 'onBeforeSetupMiddleware' option is deprecated. Please use the 'setupMiddlewares' option.
+Starting the development server...
+
+Compiled successfully!
+
+You can now view reactjs in the browser.
+
+  http://localhost:4000
+
+Note that the development build is not optimized.
+To create a production build, use npm run build.
+
+webpack compiled successfully
+Compiling...
+Compiled successfully!
+webpack compiled successfully
+Compiling...
+Compiled successfully!
+webpack compiled successfully
+Compiling...
+Compiled successfully!
+webpack compiled successfully
+Compiling...
+Failed to compile.
+
+[eslint] 
+src/pages/Maintenance.js
+Syntax error: Invalid regular expression flag. (20:52) (20:52)
+ERROR in ./src/pages/Maintenance.js
+Module build failed (from ./node_modules/babel-loader/lib/index.js):
+SyntaxError: /var/www/web_smartlogger/src/pages/Maintenance.js: Invalid regular expression flag. (20:52)
+
+  18 |     const fetchEquipament = async () => {
+  19 |       try {
+> 20 |         const response = await api.get(/equipament/${id});
+     |                                                     ^
+  21 |         setEquipament(response);
+  22 |       } catch (error) {
+  23 |         console.error("Failed to fetch equipament", error);
+    at constructor (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:351:19)
+    at FlowParserMixin.raise (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:3233:19)
+    at FlowParserMixin.readRegexp (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:2998:14)
+    at FlowParserMixin.parseExprAtom (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:10815:16)
+    at FlowParserMixin.parseExprAtom (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:6781:20)
+    at FlowParserMixin.parseExprSubscripts (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:10568:23)
+    at FlowParserMixin.parseUpdate (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:10551:21)
+    at FlowParserMixin.parseMaybeUnary (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:10529:23)
+    at FlowParserMixin.parseMaybeUnaryOrPrivate (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:10383:61)
+    at FlowParserMixin.parseExprOps (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:10388:23)
+    at FlowParserMixin.parseMaybeConditional (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:10365:23)
+    at FlowParserMixin.parseMaybeAssign (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:10326:21)
+    at FlowParserMixin.parseMaybeAssign (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:5648:18)
+    at /var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:10296:39
+    at FlowParserMixin.allowInAnd (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:11920:12)
+    at FlowParserMixin.parseMaybeAssignAllowIn (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:10296:17)
+    at FlowParserMixin.parseExprListItem (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:11680:18)
+    at FlowParserMixin.parseCallExpressionArguments (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:10754:22)
+    at FlowParserMixin.parseCoverCallAndAsyncArrowHead (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:10671:29)
+    at FlowParserMixin.parseSubscript (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:10608:19)
+    at FlowParserMixin.parseSubscript (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:5749:18)
+    at FlowParserMixin.parseSubscripts (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:10581:19)
+    at FlowParserMixin.parseSubscripts (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:5715:18)
+    at FlowParserMixin.parseExprSubscripts (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:10572:17)
+    at FlowParserMixin.parseUpdate (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:10551:21)
+    at FlowParserMixin.parseMaybeUnary (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:10529:23)
+    at FlowParserMixin.parseAwait (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:11778:28)
+    at FlowParserMixin.parseMaybeUnary (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:10498:25)
+    at FlowParserMixin.parseMaybeUnaryOrPrivate (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:10383:61)
+    at FlowParserMixin.parseExprOps (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:10388:23)
+    at FlowParserMixin.parseMaybeConditional (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:10365:23)
+    at FlowParserMixin.parseMaybeAssign (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:10326:21)
+    at FlowParserMixin.parseMaybeAssign (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:5648:18)
+    at /var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:10296:39
+    at FlowParserMixin.allowInAnd (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:11915:16)
+    at FlowParserMixin.parseMaybeAssignAllowIn (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:10296:17)
+    at FlowParserMixin.parseVar (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:12848:91)
+    at FlowParserMixin.parseVarStatement (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:12694:10)
+    at FlowParserMixin.parseStatementContent (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:12306:23)
+    at FlowParserMixin.parseStatementLike (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:12223:17)
+    at FlowParserMixin.parseStatementLike (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:5017:24)
+    at FlowParserMixin.parseStatementListItem (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:12203:17)
+    at FlowParserMixin.parseBlockOrModuleBlockBody (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:12780:61)
+    at FlowParserMixin.parseBlockBody (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:12773:10)
+    at FlowParserMixin.parseBlock (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:12761:10)
+    at FlowParserMixin.parseTryStatement (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:12669:23)
+    at FlowParserMixin.parseStatementContent (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:12260:21)
+    at FlowParserMixin.parseStatementLike (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:12223:17)
+    at FlowParserMixin.parseStatementLike (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:5017:24)
+    at FlowParserMixin.parseStatementListItem (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:12203:17)
+
+ERROR in [eslint] 
+src/pages/Maintenance.js
+  Line 20:52:  Parsing error: Invalid regular expression flag. (20:52)
+
+webpack compiled with 2 errors
+Compiling...
+Failed to compile.
+
+[eslint] 
+src/pages/Maintenance.js
+Syntax error: Invalid regular expression flag. (20:52) (20:52)
+ERROR in ./src/pages/Maintenance.js
+Module build failed (from ./node_modules/babel-loader/lib/index.js):
+SyntaxError: /var/www/web_smartlogger/src/pages/Maintenance.js: Invalid regular expression flag. (20:52)
+
+  18 |     const fetchEquipament = async () => {
+  19 |       try {
+> 20 |         const response = await api.get(/equipament/${id});
+     |                                                     ^
+  21 |         setEquipament(response);
+  22 |       } catch (error) {
+  23 |         console.error("Failed to fetch equipament", error);
+    at constructor (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:351:19)
+    at FlowParserMixin.raise (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:3233:19)
+    at FlowParserMixin.readRegexp (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:2998:14)
+    at FlowParserMixin.parseExprAtom (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:10815:16)
+    at FlowParserMixin.parseExprAtom (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:6781:20)
+    at FlowParserMixin.parseExprSubscripts (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:10568:23)
+    at FlowParserMixin.parseUpdate (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:10551:21)
+    at FlowParserMixin.parseMaybeUnary (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:10529:23)
+    at FlowParserMixin.parseMaybeUnaryOrPrivate (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:10383:61)
+    at FlowParserMixin.parseExprOps (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:10388:23)
+    at FlowParserMixin.parseMaybeConditional (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:10365:23)
+    at FlowParserMixin.parseMaybeAssign (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:10326:21)
+    at FlowParserMixin.parseMaybeAssign (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:5648:18)
+    at /var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:10296:39
+    at FlowParserMixin.allowInAnd (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:11920:12)
+    at FlowParserMixin.parseMaybeAssignAllowIn (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:10296:17)
+    at FlowParserMixin.parseExprListItem (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:11680:18)
+    at FlowParserMixin.parseCallExpressionArguments (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:10754:22)
+    at FlowParserMixin.parseCoverCallAndAsyncArrowHead (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:10671:29)
+    at FlowParserMixin.parseSubscript (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:10608:19)
+    at FlowParserMixin.parseSubscript (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:5749:18)
+    at FlowParserMixin.parseSubscripts (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:10581:19)
+    at FlowParserMixin.parseSubscripts (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:5715:18)
+    at FlowParserMixin.parseExprSubscripts (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:10572:17)
+    at FlowParserMixin.parseUpdate (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:10551:21)
+    at FlowParserMixin.parseMaybeUnary (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:10529:23)
+    at FlowParserMixin.parseAwait (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:11778:28)
+    at FlowParserMixin.parseMaybeUnary (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:10498:25)
+    at FlowParserMixin.parseMaybeUnaryOrPrivate (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:10383:61)
+    at FlowParserMixin.parseExprOps (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:10388:23)
+    at FlowParserMixin.parseMaybeConditional (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:10365:23)
+    at FlowParserMixin.parseMaybeAssign (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:10326:21)
+    at FlowParserMixin.parseMaybeAssign (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:5648:18)
+    at /var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:10296:39
+    at FlowParserMixin.allowInAnd (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:11915:16)
+    at FlowParserMixin.parseMaybeAssignAllowIn (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:10296:17)
+    at FlowParserMixin.parseVar (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:12848:91)
+    at FlowParserMixin.parseVarStatement (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:12694:10)
+    at FlowParserMixin.parseStatementContent (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:12306:23)
+    at FlowParserMixin.parseStatementLike (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:12223:17)
+    at FlowParserMixin.parseStatementLike (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:5017:24)
+    at FlowParserMixin.parseStatementListItem (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:12203:17)
+    at FlowParserMixin.parseBlockOrModuleBlockBody (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:12780:61)
+    at FlowParserMixin.parseBlockBody (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:12773:10)
+    at FlowParserMixin.parseBlock (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:12761:10)
+    at FlowParserMixin.parseTryStatement (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:12669:23)
+    at FlowParserMixin.parseStatementContent (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:12260:21)
+    at FlowParserMixin.parseStatementLike (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:12223:17)
+    at FlowParserMixin.parseStatementLike (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:5017:24)
+    at FlowParserMixin.parseStatementListItem (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:12203:17)
+
+ERROR in [eslint] 
+src/pages/Maintenance.js
+  Line 20:52:  Parsing error: Invalid regular expression flag. (20:52)
+
+webpack compiled with 2 errors
+Compiling...
+Failed to compile.
+
+[eslint] 
+src/pages/Maintenance.js
+Syntax error: Invalid regular expression flag. (20:52) (20:52)
+ERROR in ./src/pages/Maintenance.js
+Module build failed (from ./node_modules/babel-loader/lib/index.js):
+SyntaxError: /var/www/web_smartlogger/src/pages/Maintenance.js: Invalid regular expression flag. (20:52)
+
+  18 |     const fetchEquipament = async () => {
+  19 |       try {
+> 20 |         const response = await api.get(/equipament/${id});
+     |                                                     ^
+  21 |         setEquipament(response);
+  22 |       } catch (error) {
+  23 |         console.error("Failed to fetch equipament", error);
+    at constructor (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:351:19)
+    at FlowParserMixin.raise (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:3233:19)
+    at FlowParserMixin.readRegexp (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:2998:14)
+    at FlowParserMixin.parseExprAtom (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:10815:16)
+    at FlowParserMixin.parseExprAtom (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:6781:20)
+    at FlowParserMixin.parseExprSubscripts (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:10568:23)
+    at FlowParserMixin.parseUpdate (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:10551:21)
+    at FlowParserMixin.parseMaybeUnary (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:10529:23)
+    at FlowParserMixin.parseMaybeUnaryOrPrivate (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:10383:61)
+    at FlowParserMixin.parseExprOps (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:10388:23)
+    at FlowParserMixin.parseMaybeConditional (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:10365:23)
+    at FlowParserMixin.parseMaybeAssign (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:10326:21)
+    at FlowParserMixin.parseMaybeAssign (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:5648:18)
+    at /var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:10296:39
+    at FlowParserMixin.allowInAnd (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:11920:12)
+    at FlowParserMixin.parseMaybeAssignAllowIn (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:10296:17)
+    at FlowParserMixin.parseExprListItem (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:11680:18)
+    at FlowParserMixin.parseCallExpressionArguments (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:10754:22)
+    at FlowParserMixin.parseCoverCallAndAsyncArrowHead (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:10671:29)
+    at FlowParserMixin.parseSubscript (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:10608:19)
+    at FlowParserMixin.parseSubscript (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:5749:18)
+    at FlowParserMixin.parseSubscripts (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:10581:19)
+    at FlowParserMixin.parseSubscripts (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:5715:18)
+    at FlowParserMixin.parseExprSubscripts (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:10572:17)
+    at FlowParserMixin.parseUpdate (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:10551:21)
+    at FlowParserMixin.parseMaybeUnary (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:10529:23)
+    at FlowParserMixin.parseAwait (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:11778:28)
+    at FlowParserMixin.parseMaybeUnary (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:10498:25)
+    at FlowParserMixin.parseMaybeUnaryOrPrivate (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:10383:61)
+    at FlowParserMixin.parseExprOps (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:10388:23)
+    at FlowParserMixin.parseMaybeConditional (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:10365:23)
+    at FlowParserMixin.parseMaybeAssign (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:10326:21)
+    at FlowParserMixin.parseMaybeAssign (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:5648:18)
+    at /var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:10296:39
+    at FlowParserMixin.allowInAnd (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:11915:16)
+    at FlowParserMixin.parseMaybeAssignAllowIn (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:10296:17)
+    at FlowParserMixin.parseVar (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:12848:91)
+    at FlowParserMixin.parseVarStatement (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:12694:10)
+    at FlowParserMixin.parseStatementContent (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:12306:23)
+    at FlowParserMixin.parseStatementLike (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:12223:17)
+    at FlowParserMixin.parseStatementLike (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:5017:24)
+    at FlowParserMixin.parseStatementListItem (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:12203:17)
+    at FlowParserMixin.parseBlockOrModuleBlockBody (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:12780:61)
+    at FlowParserMixin.parseBlockBody (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:12773:10)
+    at FlowParserMixin.parseBlock (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:12761:10)
+    at FlowParserMixin.parseTryStatement (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:12669:23)
+    at FlowParserMixin.parseStatementContent (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:12260:21)
+    at FlowParserMixin.parseStatementLike (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:12223:17)
+    at FlowParserMixin.parseStatementLike (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:5017:24)
+    at FlowParserMixin.parseStatementListItem (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:12203:17)
+
+ERROR in [eslint] 
+src/pages/Maintenance.js
+  Line 20:52:  Parsing error: Invalid regular expression flag. (20:52)
+
+webpack compiled with 2 errors
+Compiling...
+Failed to compile.
+
+[eslint] 
+src/pages/Maintenance.js
+Syntax error: Invalid regular expression flag. (20:52) (20:52)
+ERROR in ./src/pages/Maintenance.js
+Module build failed (from ./node_modules/babel-loader/lib/index.js):
+SyntaxError: /var/www/web_smartlogger/src/pages/Maintenance.js: Invalid regular expression flag. (20:52)
+
+  18 |     const fetchEquipament = async () => {
+  19 |       try {
+> 20 |         const response = await api.get(/equipament/${id});
+     |                                                     ^
+  21 |         setEquipament(response);
+  22 |       } catch (error) {
+  23 |         console.error("Failed to fetch equipament", error);
+    at constructor (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:351:19)
+    at FlowParserMixin.raise (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:3233:19)
+    at FlowParserMixin.readRegexp (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:2998:14)
+    at FlowParserMixin.parseExprAtom (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:10815:16)
+    at FlowParserMixin.parseExprAtom (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:6781:20)
+    at FlowParserMixin.parseExprSubscripts (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:10568:23)
+    at FlowParserMixin.parseUpdate (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:10551:21)
+    at FlowParserMixin.parseMaybeUnary (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:10529:23)
+    at FlowParserMixin.parseMaybeUnaryOrPrivate (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:10383:61)
+    at FlowParserMixin.parseExprOps (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:10388:23)
+    at FlowParserMixin.parseMaybeConditional (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:10365:23)
+    at FlowParserMixin.parseMaybeAssign (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:10326:21)
+    at FlowParserMixin.parseMaybeAssign (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:5648:18)
+    at /var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:10296:39
+    at FlowParserMixin.allowInAnd (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:11920:12)
+    at FlowParserMixin.parseMaybeAssignAllowIn (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:10296:17)
+    at FlowParserMixin.parseExprListItem (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:11680:18)
+    at FlowParserMixin.parseCallExpressionArguments (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:10754:22)
+    at FlowParserMixin.parseCoverCallAndAsyncArrowHead (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:10671:29)
+    at FlowParserMixin.parseSubscript (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:10608:19)
+    at FlowParserMixin.parseSubscript (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:5749:18)
+    at FlowParserMixin.parseSubscripts (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:10581:19)
+    at FlowParserMixin.parseSubscripts (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:5715:18)
+    at FlowParserMixin.parseExprSubscripts (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:10572:17)
+    at FlowParserMixin.parseUpdate (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:10551:21)
+    at FlowParserMixin.parseMaybeUnary (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:10529:23)
+    at FlowParserMixin.parseAwait (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:11778:28)
+    at FlowParserMixin.parseMaybeUnary (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:10498:25)
+    at FlowParserMixin.parseMaybeUnaryOrPrivate (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:10383:61)
+    at FlowParserMixin.parseExprOps (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:10388:23)
+    at FlowParserMixin.parseMaybeConditional (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:10365:23)
+    at FlowParserMixin.parseMaybeAssign (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:10326:21)
+    at FlowParserMixin.parseMaybeAssign (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:5648:18)
+    at /var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:10296:39
+    at FlowParserMixin.allowInAnd (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:11915:16)
+    at FlowParserMixin.parseMaybeAssignAllowIn (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:10296:17)
+    at FlowParserMixin.parseVar (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:12848:91)
+    at FlowParserMixin.parseVarStatement (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:12694:10)
+    at FlowParserMixin.parseStatementContent (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:12306:23)
+    at FlowParserMixin.parseStatementLike (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:12223:17)
+    at FlowParserMixin.parseStatementLike (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:5017:24)
+    at FlowParserMixin.parseStatementListItem (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:12203:17)
+    at FlowParserMixin.parseBlockOrModuleBlockBody (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:12780:61)
+    at FlowParserMixin.parseBlockBody (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:12773:10)
+    at FlowParserMixin.parseBlock (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:12761:10)
+    at FlowParserMixin.parseTryStatement (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:12669:23)
+    at FlowParserMixin.parseStatementContent (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:12260:21)
+    at FlowParserMixin.parseStatementLike (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:12223:17)
+    at FlowParserMixin.parseStatementLike (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:5017:24)
+    at FlowParserMixin.parseStatementListItem (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:12203:17)
+
+ERROR in [eslint] 
+src/pages/Maintenance.js
+  Line 20:52:  Parsing error: Invalid regular expression flag. (20:52)
+
+webpack compiled with 2 errors
+Compiling...
+Compiled successfully!
+webpack compiled successfully
+Compiling...
+Failed to compile.
+
+[eslint] 
+src/pages/Maintenance.js
+Syntax error: Invalid regular expression flag. (20:52) (20:52)
+ERROR in ./src/pages/Maintenance.js
+Module build failed (from ./node_modules/babel-loader/lib/index.js):
+SyntaxError: /var/www/web_smartlogger/src/pages/Maintenance.js: Invalid regular expression flag. (20:52)
+
+  18 |     const fetchEquipament = async () => {
+  19 |       try {
+> 20 |         const response = await api.get(/equipament/${id});
+     |                                                     ^
+  21 |         setEquipament(response);
+  22 |       } catch (error) {
+  23 |         console.error("Failed to fetch equipament", error);
+    at constructor (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:351:19)
+    at FlowParserMixin.raise (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:3233:19)
+    at FlowParserMixin.readRegexp (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:2998:14)
+    at FlowParserMixin.parseExprAtom (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:10815:16)
+    at FlowParserMixin.parseExprAtom (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:6781:20)
+    at FlowParserMixin.parseExprSubscripts (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:10568:23)
+    at FlowParserMixin.parseUpdate (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:10551:21)
+    at FlowParserMixin.parseMaybeUnary (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:10529:23)
+    at FlowParserMixin.parseMaybeUnaryOrPrivate (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:10383:61)
+    at FlowParserMixin.parseExprOps (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:10388:23)
+    at FlowParserMixin.parseMaybeConditional (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:10365:23)
+    at FlowParserMixin.parseMaybeAssign (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:10326:21)
+    at FlowParserMixin.parseMaybeAssign (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:5648:18)
+    at /var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:10296:39
+    at FlowParserMixin.allowInAnd (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:11920:12)
+    at FlowParserMixin.parseMaybeAssignAllowIn (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:10296:17)
+    at FlowParserMixin.parseExprListItem (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:11680:18)
+    at FlowParserMixin.parseCallExpressionArguments (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:10754:22)
+    at FlowParserMixin.parseCoverCallAndAsyncArrowHead (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:10671:29)
+    at FlowParserMixin.parseSubscript (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:10608:19)
+    at FlowParserMixin.parseSubscript (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:5749:18)
+    at FlowParserMixin.parseSubscripts (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:10581:19)
+    at FlowParserMixin.parseSubscripts (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:5715:18)
+    at FlowParserMixin.parseExprSubscripts (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:10572:17)
+    at FlowParserMixin.parseUpdate (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:10551:21)
+    at FlowParserMixin.parseMaybeUnary (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:10529:23)
+    at FlowParserMixin.parseAwait (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:11778:28)
+    at FlowParserMixin.parseMaybeUnary (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:10498:25)
+    at FlowParserMixin.parseMaybeUnaryOrPrivate (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:10383:61)
+    at FlowParserMixin.parseExprOps (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:10388:23)
+    at FlowParserMixin.parseMaybeConditional (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:10365:23)
+    at FlowParserMixin.parseMaybeAssign (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:10326:21)
+    at FlowParserMixin.parseMaybeAssign (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:5648:18)
+    at /var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:10296:39
+    at FlowParserMixin.allowInAnd (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:11915:16)
+    at FlowParserMixin.parseMaybeAssignAllowIn (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:10296:17)
+    at FlowParserMixin.parseVar (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:12848:91)
+    at FlowParserMixin.parseVarStatement (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:12694:10)
+    at FlowParserMixin.parseStatementContent (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:12306:23)
+    at FlowParserMixin.parseStatementLike (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:12223:17)
+    at FlowParserMixin.parseStatementLike (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:5017:24)
+    at FlowParserMixin.parseStatementListItem (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:12203:17)
+    at FlowParserMixin.parseBlockOrModuleBlockBody (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:12780:61)
+    at FlowParserMixin.parseBlockBody (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:12773:10)
+    at FlowParserMixin.parseBlock (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:12761:10)
+    at FlowParserMixin.parseTryStatement (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:12669:23)
+    at FlowParserMixin.parseStatementContent (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:12260:21)
+    at FlowParserMixin.parseStatementLike (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:12223:17)
+    at FlowParserMixin.parseStatementLike (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:5017:24)
+    at FlowParserMixin.parseStatementListItem (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:12203:17)
+
+ERROR in [eslint] 
+src/pages/Maintenance.js
+  Line 20:52:  Parsing error: Invalid regular expression flag. (20:52)
+
+webpack compiled with 2 errors
+Compiling...
+Failed to compile.
+
+[eslint] 
+src/pages/Maintenance.js
+Syntax error: Invalid regular expression flag. (20:52) (20:52)
+ERROR in ./src/pages/Maintenance.js
+Module build failed (from ./node_modules/babel-loader/lib/index.js):
+SyntaxError: /var/www/web_smartlogger/src/pages/Maintenance.js: Invalid regular expression flag. (20:52)
+
+  18 |     const fetchEquipament = async () => {
+  19 |       try {
+> 20 |         const response = await api.get(/equipament/${id});
+     |                                                     ^
+  21 |         setEquipament(response);
+  22 |       } catch (error) {
+  23 |         console.error("Failed to fetch equipament", error);
+    at constructor (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:351:19)
+    at FlowParserMixin.raise (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:3233:19)
+    at FlowParserMixin.readRegexp (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:2998:14)
+    at FlowParserMixin.parseExprAtom (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:10815:16)
+    at FlowParserMixin.parseExprAtom (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:6781:20)
+    at FlowParserMixin.parseExprSubscripts (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:10568:23)
+    at FlowParserMixin.parseUpdate (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:10551:21)
+    at FlowParserMixin.parseMaybeUnary (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:10529:23)
+    at FlowParserMixin.parseMaybeUnaryOrPrivate (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:10383:61)
+    at FlowParserMixin.parseExprOps (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:10388:23)
+    at FlowParserMixin.parseMaybeConditional (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:10365:23)
+    at FlowParserMixin.parseMaybeAssign (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:10326:21)
+    at FlowParserMixin.parseMaybeAssign (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:5648:18)
+    at /var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:10296:39
+    at FlowParserMixin.allowInAnd (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:11920:12)
+    at FlowParserMixin.parseMaybeAssignAllowIn (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:10296:17)
+    at FlowParserMixin.parseExprListItem (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:11680:18)
+    at FlowParserMixin.parseCallExpressionArguments (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:10754:22)
+    at FlowParserMixin.parseCoverCallAndAsyncArrowHead (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:10671:29)
+    at FlowParserMixin.parseSubscript (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:10608:19)
+    at FlowParserMixin.parseSubscript (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:5749:18)
+    at FlowParserMixin.parseSubscripts (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:10581:19)
+    at FlowParserMixin.parseSubscripts (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:5715:18)
+    at FlowParserMixin.parseExprSubscripts (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:10572:17)
+    at FlowParserMixin.parseUpdate (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:10551:21)
+    at FlowParserMixin.parseMaybeUnary (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:10529:23)
+    at FlowParserMixin.parseAwait (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:11778:28)
+    at FlowParserMixin.parseMaybeUnary (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:10498:25)
+    at FlowParserMixin.parseMaybeUnaryOrPrivate (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:10383:61)
+    at FlowParserMixin.parseExprOps (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:10388:23)
+    at FlowParserMixin.parseMaybeConditional (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:10365:23)
+    at FlowParserMixin.parseMaybeAssign (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:10326:21)
+    at FlowParserMixin.parseMaybeAssign (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:5648:18)
+    at /var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:10296:39
+    at FlowParserMixin.allowInAnd (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:11915:16)
+    at FlowParserMixin.parseMaybeAssignAllowIn (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:10296:17)
+    at FlowParserMixin.parseVar (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:12848:91)
+    at FlowParserMixin.parseVarStatement (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:12694:10)
+    at FlowParserMixin.parseStatementContent (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:12306:23)
+    at FlowParserMixin.parseStatementLike (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:12223:17)
+    at FlowParserMixin.parseStatementLike (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:5017:24)
+    at FlowParserMixin.parseStatementListItem (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:12203:17)
+    at FlowParserMixin.parseBlockOrModuleBlockBody (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:12780:61)
+    at FlowParserMixin.parseBlockBody (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:12773:10)
+    at FlowParserMixin.parseBlock (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:12761:10)
+    at FlowParserMixin.parseTryStatement (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:12669:23)
+    at FlowParserMixin.parseStatementContent (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:12260:21)
+    at FlowParserMixin.parseStatementLike (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:12223:17)
+    at FlowParserMixin.parseStatementLike (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:5017:24)
+    at FlowParserMixin.parseStatementListItem (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:12203:17)
+
+ERROR in [eslint] 
+src/pages/Maintenance.js
+  Line 20:52:  Parsing error: Invalid regular expression flag. (20:52)
+
+webpack compiled with 2 errors
+Compiling...
+Failed to compile.
+
+[eslint] 
+src/pages/Maintenance.js
+Syntax error: Invalid regular expression flag. (20:52) (20:52)
+ERROR in ./src/pages/Maintenance.js
+Module build failed (from ./node_modules/babel-loader/lib/index.js):
+SyntaxError: /var/www/web_smartlogger/src/pages/Maintenance.js: Invalid regular expression flag. (20:52)
+
+  18 |     const fetchEquipament = async () => {
+  19 |       try {
+> 20 |         const response = await api.get(/equipament/${id});
+     |                                                     ^
+  21 |         setEquipament(response);
+  22 |       } catch (error) {
+  23 |         console.error("Failed to fetch equipament", error);
+    at constructor (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:351:19)
+    at FlowParserMixin.raise (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:3233:19)
+    at FlowParserMixin.readRegexp (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:2998:14)
+    at FlowParserMixin.parseExprAtom (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:10815:16)
+    at FlowParserMixin.parseExprAtom (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:6781:20)
+    at FlowParserMixin.parseExprSubscripts (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:10568:23)
+    at FlowParserMixin.parseUpdate (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:10551:21)
+    at FlowParserMixin.parseMaybeUnary (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:10529:23)
+    at FlowParserMixin.parseMaybeUnaryOrPrivate (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:10383:61)
+    at FlowParserMixin.parseExprOps (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:10388:23)
+    at FlowParserMixin.parseMaybeConditional (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:10365:23)
+    at FlowParserMixin.parseMaybeAssign (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:10326:21)
+    at FlowParserMixin.parseMaybeAssign (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:5648:18)
+    at /var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:10296:39
+    at FlowParserMixin.allowInAnd (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:11920:12)
+    at FlowParserMixin.parseMaybeAssignAllowIn (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:10296:17)
+    at FlowParserMixin.parseExprListItem (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:11680:18)
+    at FlowParserMixin.parseCallExpressionArguments (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:10754:22)
+    at FlowParserMixin.parseCoverCallAndAsyncArrowHead (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:10671:29)
+    at FlowParserMixin.parseSubscript (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:10608:19)
+    at FlowParserMixin.parseSubscript (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:5749:18)
+    at FlowParserMixin.parseSubscripts (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:10581:19)
+    at FlowParserMixin.parseSubscripts (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:5715:18)
+    at FlowParserMixin.parseExprSubscripts (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:10572:17)
+    at FlowParserMixin.parseUpdate (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:10551:21)
+    at FlowParserMixin.parseMaybeUnary (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:10529:23)
+    at FlowParserMixin.parseAwait (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:11778:28)
+    at FlowParserMixin.parseMaybeUnary (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:10498:25)
+    at FlowParserMixin.parseMaybeUnaryOrPrivate (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:10383:61)
+    at FlowParserMixin.parseExprOps (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:10388:23)
+    at FlowParserMixin.parseMaybeConditional (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:10365:23)
+    at FlowParserMixin.parseMaybeAssign (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:10326:21)
+    at FlowParserMixin.parseMaybeAssign (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:5648:18)
+    at /var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:10296:39
+    at FlowParserMixin.allowInAnd (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:11915:16)
+    at FlowParserMixin.parseMaybeAssignAllowIn (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:10296:17)
+    at FlowParserMixin.parseVar (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:12848:91)
+    at FlowParserMixin.parseVarStatement (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:12694:10)
+    at FlowParserMixin.parseStatementContent (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:12306:23)
+    at FlowParserMixin.parseStatementLike (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:12223:17)
+    at FlowParserMixin.parseStatementLike (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:5017:24)
+    at FlowParserMixin.parseStatementListItem (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:12203:17)
+    at FlowParserMixin.parseBlockOrModuleBlockBody (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:12780:61)
+    at FlowParserMixin.parseBlockBody (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:12773:10)
+    at FlowParserMixin.parseBlock (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:12761:10)
+    at FlowParserMixin.parseTryStatement (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:12669:23)
+    at FlowParserMixin.parseStatementContent (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:12260:21)
+    at FlowParserMixin.parseStatementLike (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:12223:17)
+    at FlowParserMixin.parseStatementLike (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:5017:24)
+    at FlowParserMixin.parseStatementListItem (/var/www/web_smartlogger/node_modules/@babel/parser/lib/index.js:12203:17)
+
+ERROR in [eslint] 
+src/pages/Maintenance.js
+  Line 20:52:  Parsing error: Invalid regular expression flag. (20:52)
+
+webpack compiled with 2 errors
+Compiling...
+Compiled successfully!
+webpack compiled successfully
+Compiling...
+Compiled successfully!
+webpack compiled successfully
+Compiling...
+Compiled successfully!
+webpack compiled successfully
+Compiling...
+Compiled successfully!
+webpack compiled successfully
+Compiling...
+Compiled successfully!
+webpack compiled successfully
+Compiling...
+Compiled successfully!
+webpack compiled successfully

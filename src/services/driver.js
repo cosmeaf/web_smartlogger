@@ -1,56 +1,79 @@
-import axios from "axios";
-
-const BASE_URL = "https://cliente.smartlogger.duckdns.org/api";
+const BASE_URL = "https://api.smartlogger.duckdns.org/api";
 
 const getHeaders = () => {
   const accessToken = JSON.parse(localStorage.getItem("accessToken"));
-  return accessToken ? { Authorization: `Bearer ${accessToken}` } : {};
+  return {
+    "Content-Type": "application/json",
+    Authorization: accessToken ? `Bearer ${accessToken}` : "",
+  };
 };
 
 const refreshToken = async () => {
   const refresh = JSON.parse(localStorage.getItem("refreshToken"));
-  const response = await axios.post(`${BASE_URL}/token/refresh/`, { refresh });
-  const { access } = response.data;
-  localStorage.setItem("accessToken", JSON.stringify(access));
-  return access;
+  const response = await fetch(`${BASE_URL}/token/refresh/`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ refresh }),
+  });
+  const data = await response.json();
+  localStorage.setItem("accessToken", JSON.stringify(data.access));
+  return data.access;
 };
 
 const request = async (method, url, data = null) => {
   try {
     const headers = getHeaders();
-    const response = await axios({
+    const response = await fetch(`${BASE_URL}${url}`, {
       method,
-      url: `${BASE_URL}${url}`,
-      data,
       headers,
+      body: data ? JSON.stringify(data) : null,
     });
-    return response.data;
+
+    const json = await response.json();
+
+    if (!response.ok) {
+      return { code: response.status, message: json };
+    }
+
+    return json;
   } catch (error) {
-    if (error.response && error.response.status === 401) {
+    if (error.message.includes("401")) {
       try {
         const access = await refreshToken();
-        const headers = { Authorization: `Bearer ${access}` };
-        const response = await axios({
+        const headers = {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${access}`,
+        };
+        const response = await fetch(`${BASE_URL}${url}`, {
           method,
-          url: `${BASE_URL}${url}`,
-          data,
           headers,
+          body: data ? JSON.stringify(data) : null,
         });
-        return response.data;
+
+        const json = await response.json();
+
+        if (!response.ok) {
+          return { code: response.status, message: json };
+        }
+
+        return json;
       } catch (refreshError) {
-        throw refreshError;
+        return { code: 500, message: "Failed to refresh token" };
       }
     } else {
-      throw error;
+      return { code: 500, message: error.message };
     }
   }
 };
 
 const driver = {
-  get: (url) => request("get", url),
-  post: (url, data) => request("post", url, data),
-  put: (url, data) => request("put", url, data),
-  del: (url) => request("delete", url),
+  get: (url) => request("GET", url),
+  post: (url, data) => request("POST", url, data),
+  put: (url, data) => request("PUT", url, data),
+  delete: (url) => request("DELETE", url),
+  patch: (url, data) => request("PATCH", url, data),
 };
 
 export default driver;

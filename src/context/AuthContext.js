@@ -16,8 +16,13 @@ const AuthProvider = ({ children }) => {
   const [authTokens, setAuthTokens] = useState(() => {
     const accessToken = localStorage.getItem("accessToken");
     const refreshToken = localStorage.getItem("refreshToken");
-    return accessToken && refreshToken
-      ? { access: JSON.parse(accessToken), refresh: JSON.parse(refreshToken) }
+    const userData = localStorage.getItem("userData");
+    return accessToken && refreshToken && userData
+      ? {
+          access: JSON.parse(accessToken),
+          refresh: JSON.parse(refreshToken),
+          user: JSON.parse(userData),
+        }
       : null;
   });
 
@@ -31,15 +36,25 @@ const AuthProvider = ({ children }) => {
     localStorage.setItem("refreshToken", JSON.stringify(refresh));
   };
 
+  const setUserData = (user) => {
+    localStorage.setItem("userData", JSON.stringify(user));
+  };
+
   const loginUser = async (credentials) => {
     try {
-      const { access, refresh } = await api.loginUser(credentials);
-      setAuthTokens({ access, refresh });
+      const response = await api.loginUser(credentials);
+      if (response.code && response.code !== 200) {
+        const errorMessage = Object.values(response.message).flat().join(", ");
+        throw new Error(errorMessage);
+      }
+      const { access, refresh, user } = response;
+      setAuthTokens({ access, refresh, user });
       setToken(access);
       setRefresh(refresh);
+      setUserData(user);
       navigate("/dashboard");
-    } catch (error) {
-      console.error("Failed to login", error);
+    } catch (err) {
+      throw err;
     }
   };
 
@@ -53,16 +68,24 @@ const AuthProvider = ({ children }) => {
     setAuthTokens(null);
     localStorage.removeItem("accessToken");
     localStorage.removeItem("refreshToken");
+    localStorage.removeItem("userData");
     navigate("/signin");
   }, [navigate]);
 
   const updateToken = useCallback(async () => {
     if (authTokens?.refresh) {
       try {
-        const { access, refresh } = await api.refreshUserToken();
-        setAuthTokens({ access, refresh });
+        const response = await api.refreshUserToken();
+        const { access, refresh, user } = response.data;
+        setAuthTokens((prevTokens) => ({
+          ...prevTokens,
+          access,
+          refresh,
+          user,
+        }));
         setToken(access);
         setRefresh(refresh);
+        setUserData(user);
       } catch (error) {
         console.error("Failed to refresh token", error);
         logoutUser();

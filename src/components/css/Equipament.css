@@ -1,0 +1,30 @@
+/* src/components/css/Equipament.css */
+
+@import './global.css';
+
+.equipament-page {
+  text-align: center;
+  font-size: 0.7rem;
+}
+
+.table-responsive {
+  margin-bottom: 1rem;
+}
+
+.table th,
+.table td {
+  vertical-align: middle;
+  text-align: center;
+}
+
+.table th {
+  font-size: 0.7rem;
+}
+
+.table td {
+  font-size: 0.7rem;
+}
+
+.button-small {
+  font-size: 0.8rem;
+}

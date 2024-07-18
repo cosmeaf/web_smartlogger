@@ -32,7 +32,7 @@ const HeaderNotLoggedIn = () => {
               <NavDropdown.Item as={Link} to="/signin">
                 Login
               </NavDropdown.Item>
-              <NavDropdown.Item as={Link} to="/register">
+              <NavDropdown.Item as={Link} to="/signup">
                 Register
               </NavDropdown.Item>
             </NavDropdown>

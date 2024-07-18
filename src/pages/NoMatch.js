@@ -1,11 +1,17 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 
 const NoMatch = () => {
   const navigate = useNavigate();
+  const { authTokens } = useAuth();
 
   const handleGoHome = () => {
-    navigate("/");
+    if (authTokens) {
+      navigate("/dashboard");
+    } else {
+      navigate("/");
+    }
   };
 
   return (
