@@ -10,28 +10,59 @@ const Devices = () => {
   const [maintenances, setMaintenances] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(10);
+  const [error, setError] = useState(null);
   const navigate = useNavigate();
 
   useEffect(() => {
-    const fetchData = async () => {
+    const fetchDevices = async () => {
       try {
-        const [devicesResponse, equipmentsResponse, maintenancesResponse] =
-          await Promise.all([
-            api.get("/device/"),
-            api.get("/equipament/"),
-            api.get("/maintenance/"),
-          ]);
-
-        setDevices(devicesResponse);
-        setEquipments(equipmentsResponse);
-        setMaintenances(maintenancesResponse);
+        const response = await api.get("/device/");
+        setDevices(response.data);
       } catch (error) {
-        console.error("Failed to fetch data", error);
+        console.error("Failed to fetch devices", error);
+        setError(error);
       }
     };
-    fetchData();
+    fetchDevices();
   }, []);
 
+  useEffect(() => {
+    const fetchEquipament = async () => {
+      try {
+        const response = await api.get("/equipament/");
+        setEquipments(response.data);
+      } catch (error) {
+        console.error("Failed to fetch equipment", error);
+      }
+    };
+    fetchEquipament();
+  }, []);
+
+  useEffect(() => {
+    const fetchMaintenances = async () => {
+      try {
+        const response = await api.get("/maintenance/");
+        setMaintenances(response.data);
+      } catch (error) {
+        console.error("Failed to fetch equipment", error);
+      }
+    };
+    fetchMaintenances();
+  }, []);
+
+  // Get Equipamento Id
+  const getEquipamentLink = (deviceId) => {
+    const equipament = equipments.find((e) => e.device === deviceId);
+    console.log("Device ID:", deviceId); // Log Device ID
+    console.log("Equipament found:", equipament); // Log Equipament found
+    if (equipament) {
+      navigate(`/dashboard/maintenance/${equipament.id}`);
+    } else {
+      console.error("Equipament not found for deviceId:", deviceId);
+    }
+  };
+
+  // Código para Tabela
   const getRowClass = (deviceId) => {
     const equipament = equipments.find((e) => e.device.device_id === deviceId);
     if (!equipament) return "";
@@ -61,17 +92,19 @@ const Devices = () => {
     setCurrentPage(1);
   };
 
-  const handleNavigateToMaintenance = (deviceId) => {
-    const equipament = equipments.find((e) => e.device.device_id === deviceId);
-    if (equipament) {
-      navigate(`/dashboard/maintenance/${equipament.id}`);
-    }
-  };
-
   return (
     <div className="devices-page">
       <HeaderLoggedIn />
       <div className="container mx-auto my-5">
+        {error && (
+          <div
+            className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative"
+            role="alert"
+          >
+            <strong className="font-bold">Error: </strong>
+            <span className="block sm:inline">{error}</span>
+          </div>
+        )}
         <div className="flex justify-between items-center mb-3">
           <h1 className="text-xl font-bold">Lista dos Horímetros</h1>
           <h6 className="text-md">Registros Encontrados: {devices.length}</h6>
@@ -127,15 +160,18 @@ const Devices = () => {
                       >
                         <i className="fas fa-edit"></i>
                       </button>
-                      <button className="text-gray-500 hover:text-gray-700">
-                        <i className="fas fa-info-circle"></i>
-                      </button>
                       <Link
-                        to={`/dashboard/maintenance/${equipments.id}`}
-                        className="text-green-500 hover:text-green-700"
+                        to={`/dashboard/device/detail/${device.device_id}`}
+                        className="text-gray-500 hover:text-gray-700"
+                      >
+                        <i className="fas fa-info-circle"></i>
+                      </Link>
+                      <button
+                        className="text-blue-500 hover:text-blue-700"
+                        onClick={() => getEquipamentLink(device.device_id)}
                       >
                         <i className="fas fa-tools"></i>
-                      </Link>
+                      </button>
                     </td>
                   </tr>
                 ))}

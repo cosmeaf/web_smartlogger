@@ -8,18 +8,18 @@ import {
   Container,
   InputGroup,
 } from "react-bootstrap";
-import { useAuth } from "../context/AuthContext";
+import useAuth from "../context/UseAuth";
 import LoadPage from "../components/LoadPage";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEnvelope, faLock } from "@fortawesome/free-solid-svg-icons";
 import "../components/css/Signin.css";
 
 const Signin = () => {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
+  const [username, setUsername] = useState("cosmeaf@gmail.com");
+  const [password, setPassword] = useState("qweasd32");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
-  const { loginUser } = useAuth();
+  const { signIn } = useAuth();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -27,11 +27,12 @@ const Signin = () => {
     setError("");
 
     try {
-      await loginUser({ username, password });
+      await signIn(username, password);
     } catch (err) {
       const errorMessage =
         err.message || "Failed to log in. Please check your credentials.";
       setError(errorMessage);
+      console.error("Sign in error:", err);
     } finally {
       setLoading(false);
     }

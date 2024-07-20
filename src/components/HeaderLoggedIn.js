@@ -1,11 +1,11 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
-import { useAuth } from "../context/AuthContext";
+import useAuth from "../context/UseAuth";
 import LogoutModal from "./LogoutModal";
 import LoadPage from "./LoadPage";
 
 const HeaderLoggedIn = () => {
-  const { authTokens } = useAuth();
+  const { user } = useAuth();
   const [showLogoutModal, setShowLogoutModal] = useState(false);
   const [userFullName, setUserFullName] = useState("Guest");
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -14,19 +14,18 @@ const HeaderLoggedIn = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      if (authTokens && authTokens.user) {
-        const { first_name, last_name } = authTokens.user;
+      if (user) {
+        const { first_name, last_name } = user;
         const fullName = `${first_name} ${last_name}`.trim();
         setUserFullName(fullName || "Guest");
-        setLoading(false);
       } else {
         setUserFullName("Guest");
-        setLoading(false);
       }
+      setLoading(false);
     };
 
     fetchData();
-  }, [authTokens]);
+  }, [user]);
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -62,7 +61,7 @@ const HeaderLoggedIn = () => {
               className="text-white focus:outline-none flex items-center text-xs"
               onClick={toggleDropdown}
             >
-              <span className="text-0.7rem">{userFullName || "Guest"}</span>
+              <span className="text-0.7rem">{userFullName}</span>
               <svg
                 className="ml-2 w-4 h-4"
                 fill="none"

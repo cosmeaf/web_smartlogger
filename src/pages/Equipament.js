@@ -23,9 +23,9 @@ const Equipament = () => {
     const fetchEquipament = async () => {
       try {
         const response = await api.get("/equipament/");
-        setEquipament(response);
+        setEquipament(response.data);
       } catch (error) {
-        console.error("Failed to fetch equipament", error);
+        console.error("Failed to fetch equipment", error);
       } finally {
         setLoading(false);
       }
@@ -36,7 +36,9 @@ const Equipament = () => {
   // Lógica para itens da página atual
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentItems = equipament.slice(indexOfFirstItem, indexOfLastItem);
+  const currentItems = Array.isArray(equipament)
+    ? equipament.slice(indexOfFirstItem, indexOfLastItem)
+    : [];
 
   // Lógica para números de página
   const pageNumbers = [];
@@ -54,7 +56,6 @@ const Equipament = () => {
   return (
     <>
       {loading && <LoadPage />}
-
       <HeaderLoggedIn />
       <div className="container mx-auto my-5">
         <div className="flex justify-between items-center mb-3">

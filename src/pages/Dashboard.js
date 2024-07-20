@@ -25,7 +25,7 @@ const Dashboard = () => {
     const fetchDevices = async () => {
       try {
         const response = await api.get("/device/");
-        setTotalDevices(response.length);
+        setTotalDevices(response.data.length);
       } catch (error) {
         console.error("Failed to fetch devices", error);
       }
@@ -37,7 +37,7 @@ const Dashboard = () => {
     const fetchEquipament = async () => {
       try {
         const response = await api.get("/equipament/");
-        setTotalEquipament(response.length);
+        setTotalEquipament(response.data.length);
       } catch (error) {
         console.error("Failed to fetch equipment", error);
       }
@@ -49,7 +49,7 @@ const Dashboard = () => {
     const fetchReports = async () => {
       try {
         const response = await api.get("/reports/");
-        setTotalReports(response.length);
+        setTotalReports(response.data.length);
       } catch (error) {
         console.error("Failed to fetch reports", error);
       }
@@ -61,7 +61,7 @@ const Dashboard = () => {
     const fetchHistoricalLogs = async () => {
       try {
         const response = await api.get("/historical_logs/");
-        setTotalHistoricalLogs(response.length);
+        setTotalHistoricalLogs(response.data.length);
       } catch (error) {
         console.error("Failed to fetch historical logs", error);
       }
@@ -73,7 +73,7 @@ const Dashboard = () => {
     const fetchGraphData = async () => {
       try {
         const response = await api.get("/graph_data/");
-        setTotalGraphData(response.length);
+        setTotalGraphData(response.data.length);
       } catch (error) {
         console.error("Failed to fetch graph data", error);
       }

@@ -18,7 +18,7 @@ const Maintenance = () => {
     const fetchEquipament = async () => {
       try {
         const response = await api.get(`/equipament/${id}`);
-        setEquipament(response);
+        setEquipament(response.data);
       } catch (error) {
         console.error("Failed to fetch equipament", error);
       }
@@ -27,7 +27,7 @@ const Maintenance = () => {
     const fetchMaintenances = async () => {
       try {
         const response = await api.get(`/maintenance/?equipament_id=${id}`);
-        setMaintenances(response);
+        setMaintenances(response.data);
       } catch (error) {
         console.error("Failed to fetch maintenances", error);
         setMaintenances([]);

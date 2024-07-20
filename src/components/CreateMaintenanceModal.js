@@ -32,7 +32,7 @@ const CreateMaintenanceModal = ({ show, onHide, onCreate, equipamentId }) => {
     e.preventDefault();
     console.log("Form data being sent:", formData);
     try {
-      const response = await api.post("/maintenance/", formData);
+      const response = await api.post("/maintenance/", formData); // Usando api.post
       onCreate(response.data);
       onHide();
       setFormData({
