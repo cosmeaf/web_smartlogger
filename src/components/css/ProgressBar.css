@@ -1,0 +1,21 @@
+/* src/components/css/ProgressBar.css */
+
+@import './global.css';
+
+.progress-bar-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 2px; /* Ajuste a altura da barra de progresso aqui */
+  background-color: rgba(0, 0, 0, 0.1); /* Cor de fundo da barra de progresso */
+  z-index: 9999;
+}
+
+.progress-bar {
+  height: 100%;
+  background-color: #3498db; /* Cor da barra de progresso */
+  width: 0;
+  transition: width 1s linear;
+}
+

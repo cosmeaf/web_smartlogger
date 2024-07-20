@@ -1,8 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import HeaderLoggedIn from "../components/HeaderLoggedIn";
+import { format } from "date-fns";
 import api from "../services/api";
+import HeaderLoggedIn from "../components/HeaderLoggedIn";
+import ProgressBar from "../components/ProgressBar";
 import "../components/css/Devices.css";
+
+
 
 const Devices = () => {
   const [devices, setDevices] = useState([]);
@@ -10,72 +14,55 @@ const Devices = () => {
   const [maintenances, setMaintenances] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(10);
+  const [maintenanceDevices, setMaintenanceDevices] = useState([]);
   const [error, setError] = useState(null);
   const navigate = useNavigate();
 
+ const fetchData = async () => {
+  try {
+      const [devicesResponse, equipmentsResponse, maintenancesResponse] =
+        await Promise.all([
+          api.get("/device/"),
+          api.get("/equipament/"),
+          api.get("/maintenance/"),
+        ]);
+      setDevices(devicesResponse.data);
+      setEquipments(equipmentsResponse.data);
+      setMaintenances(maintenancesResponse.data);
+      isDeviceInMaintenance()
+
+    } catch (error) {
+      console.error("Failed to fetch data", error);
+      setError(error);
+    }
+  };
+
+  
   useEffect(() => {
-    const fetchDevices = async () => {
-      try {
-        const response = await api.get("/device/");
-        setDevices(response.data);
-      } catch (error) {
-        console.error("Failed to fetch devices", error);
-        setError(error);
-      }
-    };
-    fetchDevices();
+    fetchData();
   }, []);
 
-  useEffect(() => {
-    const fetchEquipament = async () => {
-      try {
-        const response = await api.get("/equipament/");
-        setEquipments(response.data);
-      } catch (error) {
-        console.error("Failed to fetch equipment", error);
-      }
-    };
-    fetchEquipament();
-  }, []);
+ 
 
-  useEffect(() => {
-    const fetchMaintenances = async () => {
-      try {
-        const response = await api.get("/maintenance/");
-        setMaintenances(response.data);
-      } catch (error) {
-        console.error("Failed to fetch equipment", error);
-      }
-    };
-    fetchMaintenances();
-  }, []);
+  // Formatar Horas
+  const formatDateTime = (dateTime) => {
+    return format(new Date(dateTime), "dd/MM/yyyy HH:mm:ss");
+  };
+
+   // Verifica se o dispositivo está em manutenção
+   const isDeviceInMaintenance = () => {
+      const emquipament = maintenances.find((e) => e.os )
+      console.log(emquipament)
+  };
 
   // Get Equipamento Id
   const getEquipamentLink = (deviceId) => {
     const equipament = equipments.find((e) => e.device === deviceId);
-    console.log("Device ID:", deviceId); // Log Device ID
-    console.log("Equipament found:", equipament); // Log Equipament found
     if (equipament) {
       navigate(`/dashboard/maintenance/${equipament.id}`);
     } else {
       console.error("Equipament not found for deviceId:", deviceId);
     }
-  };
-
-  // Código para Tabela
-  const getRowClass = (deviceId) => {
-    const equipament = equipments.find((e) => e.device.device_id === deviceId);
-    if (!equipament) return "";
-
-    const maintenance = maintenances.find(
-      (m) => m.equipament === equipament.id && m.os
-    );
-    if (!maintenance) return "";
-
-    const remainingHours = maintenance.remaining_hours;
-    if (remainingHours <= 0) return "bg-red-500";
-    if (remainingHours <= 100) return "bg-yellow-500";
-    return "bg-orange-500";
   };
 
   const indexOfLastItem = currentPage * itemsPerPage;
@@ -95,7 +82,8 @@ const Devices = () => {
   return (
     <div className="devices-page">
       <HeaderLoggedIn />
-      <div className="container mx-auto my-5">
+      <ProgressBar color="#f39c12" size="2px" second={10} onComplete={fetchData} />
+      <div className="container mx-auto my-2">
         {error && (
           <div
             className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative"
@@ -132,9 +120,7 @@ const Devices = () => {
                 {currentItems.map((device, index) => (
                   <tr
                     key={index}
-                    className={`border-t hover:bg-gray-100 ${getRowClass(
-                      device.device_id
-                    )}`}
+                    className="border-t hover:bg-gray-100"
                   >
                     <td className="py-1 px-2 border-b">{device.device_id}</td>
                     <td className="py-1 px-2 border-b">{device.horimeter}</td>
@@ -150,7 +136,7 @@ const Devices = () => {
                     <td className="py-1 px-2 border-b">
                       {device.horas_restantes}
                     </td>
-                    <td className="py-1 px-2 border-b">{device.updated_at}</td>
+                    <td className="py-1 px-2 border-b">{formatDateTime(device.updated_at)}</td>
                     <td className="py-1 px-2 border-b flex space-x-2 justify-center">
                       <button
                         className="text-blue-500 hover:text-blue-700"
@@ -162,12 +148,12 @@ const Devices = () => {
                       </button>
                       <Link
                         to={`/dashboard/device/detail/${device.device_id}`}
-                        className="text-gray-500 hover:text-gray-700"
+                        className="text-green-500 hover:text-green-700"
                       >
                         <i className="fas fa-info-circle"></i>
                       </Link>
                       <button
-                        className="text-blue-500 hover:text-blue-700"
+                        className="text-red-500 hover:text-red-700"
                         onClick={() => getEquipamentLink(device.device_id)}
                       >
                         <i className="fas fa-tools"></i>
@@ -215,6 +201,7 @@ const Devices = () => {
       </div>
     </div>
   );
+
 };
 
 export default Devices;

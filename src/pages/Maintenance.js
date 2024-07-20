@@ -6,7 +6,7 @@ import CreateMaintenanceModal from "../components/CreateMaintenanceModal";
 import api from "../services/api";
 
 const Maintenance = () => {
-  const { id } = useParams(); // 'id' é o equipamento_id passado pela URL
+  const { id } = useParams();
   const [maintenances, setMaintenances] = useState([]);
   const [equipament, setEquipament] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -127,6 +127,7 @@ const Maintenance = () => {
               <thead>
                 <tr>
                   <th className="py-2 px-4 border-b">Nome do Alarme</th>
+                  <th className="py-2 px-4 border-b">OS</th>
                   <th className="py-2 px-4 border-b">Relatórios</th>
                   <th className="py-2 px-4 border-b">Horas de uso Peça</th>
                   <th className="py-2 px-4 border-b">Horas para Alarme</th>
@@ -143,7 +144,7 @@ const Maintenance = () => {
                     );
                     return (
                       <tr key={index} className="border-t hover:bg-gray-100">
-                        <td className="py-1 px-2 border-b" colSpan="6">
+                        <td className="py-1 px-2 border-b" colSpan="7">
                           Invalid Maintenance Data
                         </td>
                       </tr>
@@ -152,6 +153,19 @@ const Maintenance = () => {
                   return (
                     <tr key={index} className="border-t hover:bg-gray-100">
                       <td className="py-1 px-2 border-b">{maintenance.name}</td>
+                      <td className="py-1 px-2 border-b">
+                        <input
+                          type="checkbox"
+                          checked={maintenance.os}
+                          onChange={(e) =>
+                            handleUpdateField(
+                              maintenance.id,
+                              "os",
+                              e.target.checked
+                            )
+                          }
+                        />
+                      </td>
                       <td className="py-1 px-2 border-b">
                         <button className="text-blue-500 hover:text-blue-700">
                           Relatório
@@ -231,7 +245,7 @@ const Maintenance = () => {
         show={showCreateModal}
         onHide={() => setShowCreateModal(false)}
         onCreate={handleCreateMaintenance}
-        equipamentId={id} // Passando equipamentId aqui
+        equipamentId={id}
       />
     </>
   );

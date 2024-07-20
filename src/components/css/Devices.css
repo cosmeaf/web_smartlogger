@@ -1,4 +1,6 @@
 /* src/components/css/Devices.css */
+@import './global.css';
+
 .table-responsive {
   width: 100%;
 }
@@ -19,3 +21,6 @@
 .margin-bottom {
   margin-bottom: 20px; /* Ajuste o valor conforme necessário */
 }
+
+
+
