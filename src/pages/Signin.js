@@ -1,24 +1,21 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import {
-  Form,
-  Button,
-  Card,
-  Alert,
-  Container,
-  InputGroup,
-} from "react-bootstrap";
 import useAuth from "../context/UseAuth";
 import LoadPage from "../components/LoadPage";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEnvelope, faLock } from "@fortawesome/free-solid-svg-icons";
+import {
+  faEnvelope,
+  faEye,
+  faEyeSlash,
+} from "@fortawesome/free-solid-svg-icons";
 import "../components/css/Signin.css";
 
 const Signin = () => {
-  const [username, setUsername] = useState("cosmeaf@gmail.com");
-  const [password, setPassword] = useState("qweasd32");
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
   const { signIn } = useAuth();
 
   const handleSubmit = async (e) => {
@@ -39,55 +36,68 @@ const Signin = () => {
   };
 
   return (
-    <div className="signin-page d-flex align-items-center justify-content-center min-vh-100">
+    <div className="flex items-center justify-center min-h-screen bg-gray-100">
       {loading && <LoadPage />}
-      <Container>
-        <Card className="p-4" style={{ maxWidth: "400px" }}>
-          <Card.Body>
-            <h2 className="text-center mb-4">Sign In</h2>
-            {error && <Alert variant="danger">{error}</Alert>}
-            <Form onSubmit={handleSubmit}>
-              <Form.Group id="username" className="mb-3">
-                <InputGroup>
-                  <InputGroup.Text>
-                    <FontAwesomeIcon icon={faEnvelope} />
-                  </InputGroup.Text>
-                  <Form.Control
-                    type="text"
-                    placeholder="E-mail"
-                    required
-                    value={username}
-                    onChange={(e) => setUsername(e.target.value)}
-                    size="sm"
-                  />
-                </InputGroup>
-              </Form.Group>
-              <Form.Group id="password" className="mb-3">
-                <InputGroup>
-                  <InputGroup.Text>
-                    <FontAwesomeIcon icon={faLock} />
-                  </InputGroup.Text>
-                  <Form.Control
-                    type="password"
-                    placeholder="Password"
-                    required
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    size="sm"
-                  />
-                </InputGroup>
-              </Form.Group>
-              <Button type="submit" className="w-100" size="sm">
-                Sign In
-              </Button>
-            </Form>
-            <div className="w-100 text-center mt-3">
-              <Link to="/signup">Register</Link> |{" "}
-              <Link to="/recovery">Forgot Password?</Link>
+      <div className="w-full max-w-md p-8 space-y-3 bg-white rounded-lg shadow-md">
+        <h2 className="text-2xl font-bold text-center">Sign In</h2>
+        {error && (
+          <div className="p-3 text-red-700 bg-red-200 rounded">{error}</div>
+        )}
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <div>
+            <label className="block text-sm font-medium text-gray-700">
+              Email
+            </label>
+            <div className="relative">
+              <input
+                type="text"
+                className="w-full p-2 mt-1 border rounded-md focus:ring focus:ring-blue-500"
+                required
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+              />
+              <div className="absolute inset-y-0 right-3 flex items-center">
+                <FontAwesomeIcon icon={faEnvelope} />
+              </div>
             </div>
-          </Card.Body>
-        </Card>
-      </Container>
+          </div>
+          <div>
+            <label className="block text-sm font-medium text-gray-700">
+              Password
+            </label>
+            <div className="relative">
+              <input
+                type={showPassword ? "text" : "password"}
+                className="w-full p-2 mt-1 border rounded-md focus:ring focus:ring-blue-500"
+                required
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
+              <button
+                type="button"
+                className="absolute inset-y-0 right-0 px-3 flex items-center focus:outline-none"
+                onClick={() => setShowPassword(!showPassword)}
+              >
+                <FontAwesomeIcon icon={showPassword ? faEye : faEyeSlash} />
+              </button>
+            </div>
+          </div>
+          <button
+            type="submit"
+            className="w-full p-2 text-white bg-blue-500 rounded-md hover:bg-blue-700 focus:ring focus:ring-blue-500"
+          >
+            Sign In
+          </button>
+        </form>
+        <div className="mt-4 text-center">
+          <Link to="/signup" className="text-blue-500 hover:underline">
+            Register
+          </Link>
+          <Link to="/recovery" className="text-blue-500 hover:underline">
+            Forgot Password?
+          </Link>
+        </div>
+      </div>
     </div>
   );
 };

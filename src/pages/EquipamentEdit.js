@@ -35,7 +35,7 @@ const EquipamentEditPage = () => {
     const fetchEquipament = async () => {
       try {
         const response = await api.get(`/equipament/${id}/`);
-        const equipamentData = response;
+        const equipamentData = response.data;
         setFormData({
           ...equipamentData,
         });
@@ -47,7 +47,7 @@ const EquipamentEditPage = () => {
     const fetchDevices = async () => {
       try {
         const response = await api.get("/device/");
-        setDevices(response);
+        setDevices(response.data);
       } catch (error) {
         console.error("Failed to fetch devices", error);
       }

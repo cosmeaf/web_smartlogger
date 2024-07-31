@@ -1,63 +1,61 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { format } from "date-fns";
 import api from "../services/api";
 import HeaderLoggedIn from "../components/HeaderLoggedIn";
 import ProgressBar from "../components/ProgressBar";
+import Breadcrumb from "../components/Breadcrumb";
 import "../components/css/Devices.css";
-
-
 
 const Devices = () => {
   const [devices, setDevices] = useState([]);
   const [equipments, setEquipments] = useState([]);
-  const [maintenances, setMaintenances] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(10);
-  const [maintenanceDevices, setMaintenanceDevices] = useState([]);
   const [error, setError] = useState(null);
   const navigate = useNavigate();
 
- const fetchData = async () => {
-  try {
-      const [devicesResponse, equipmentsResponse, maintenancesResponse] =
-        await Promise.all([
-          api.get("/device/"),
-          api.get("/equipament/"),
-          api.get("/maintenance/"),
-        ]);
+  const logoutUser = useCallback(() => {
+    // Limpar dados do usuário e redirecionar para a página de login
+    localStorage.clear();
+    navigate("/login");
+  }, [navigate]);
+
+  const fetchData = useCallback(async () => {
+    try {
+      const [devicesResponse, equipmentsResponse] = await Promise.all([
+        api.get("/device/"),
+        api.get("/equipament/"),
+      ]);
       setDevices(devicesResponse.data);
       setEquipments(equipmentsResponse.data);
-      setMaintenances(maintenancesResponse.data);
-      isDeviceInMaintenance()
-
     } catch (error) {
       console.error("Failed to fetch data", error);
-      setError(error);
+      if (error.response && error.response.status === 401) {
+        logoutUser();
+      } else {
+        setError(error.message || "An unknown error occurred.");
+      }
     }
-  };
+  }, [logoutUser]);
 
-  
   useEffect(() => {
     fetchData();
-  }, []);
-
- 
+  }, [fetchData]);
 
   // Formatar Horas
   const formatDateTime = (dateTime) => {
     return format(new Date(dateTime), "dd/MM/yyyy HH:mm:ss");
   };
 
-   // Verifica se o dispositivo está em manutenção
-   const isDeviceInMaintenance = () => {
-      const emquipament = maintenances.find((e) => e.os )
-      console.log(emquipament)
-  };
+  const breadcrumbItems = [
+    { name: "Dashboard", link: "/dashboard" },
+    { name: "Lista dos Horímetros" },
+  ];
 
   // Get Equipamento Id
   const getEquipamentLink = (deviceId) => {
-    const equipament = equipments.find((e) => e.device === deviceId);
+    const equipament = equipments.find((e) => e.device.device_id === deviceId);
     if (equipament) {
       navigate(`/dashboard/maintenance/${equipament.id}`);
     } else {
@@ -82,8 +80,13 @@ const Devices = () => {
   return (
     <div className="devices-page">
       <HeaderLoggedIn />
-      <ProgressBar color="#f39c12" size="2px" second={10} onComplete={fetchData} />
-      <div className="container mx-auto my-2">
+      <ProgressBar
+        color="#f39c12"
+        size="2px"
+        second={10}
+        onComplete={fetchData}
+      />
+      <div className="container-fluid mx-auto my-2">
         {error && (
           <div
             className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative"
@@ -94,15 +97,17 @@ const Devices = () => {
           </div>
         )}
         <div className="flex justify-between items-center mb-3">
-          <h1 className="text-xl font-bold">Lista dos Horímetros</h1>
+          <h2 className="text-xl font-bold">Lista dos Horímetros</h2>
           <h6 className="text-md">Registros Encontrados: {devices.length}</h6>
         </div>
+        <Breadcrumb items={breadcrumbItems} />
+
         <div className="bg-white shadow-md rounded-lg p-4">
           <div className="overflow-auto">
             <table className="min-w-full bg-white text-xs table-auto">
-              <thead className="bg-gray-200">
+              <thead className="bg-gray-200 text-xs">
                 <tr className="text-center">
-                  <th className="py-2 px-4 border-b">Id do Equipamento</th>
+                  <th className="py-2 px-4 border-b">ID do Equipamento</th>
                   <th className="py-2 px-4 border-b">Horímetro</th>
                   <th className="py-2 px-4 border-b">
                     Velocidade de Pico (Km/h)
@@ -111,7 +116,9 @@ const Devices = () => {
                     Temperatura de Pico (°C)
                   </th>
                   <th className="py-2 px-4 border-b">Impacto Pico</th>
-                  <th className="py-2 px-4 border-b">Horas Restantes</th>
+                  <th className="py-2 px-4 border-b">Hodômetro GPS</th>
+                  <th className="py-2 px-4 border-b">ID Condutor</th>
+                  <th className="py-2 px-4 border-b">SoC Bateria</th>
                   <th className="py-2 px-4 border-b">Atualizado</th>
                   <th className="py-2 px-4 border-b">Ações</th>
                 </tr>
@@ -120,7 +127,7 @@ const Devices = () => {
                 {currentItems.map((device, index) => (
                   <tr
                     key={index}
-                    className="border-t hover:bg-gray-100"
+                    className="border-t hover:bg-gray-100 text-center"
                   >
                     <td className="py-1 px-2 border-b">{device.device_id}</td>
                     <td className="py-1 px-2 border-b">{device.horimeter}</td>
@@ -130,24 +137,20 @@ const Devices = () => {
                     <td className="py-1 px-2 border-b">
                       {device.temperatura_pico}
                     </td>
+                    <td className="py-1 px-2 border-b">{device.impact}</td>
                     <td className="py-1 px-2 border-b">
-                      {device.impacto_pico}
+                      {device.GPS_odometer}
+                    </td>
+                    <td className="py-1 px-2 border-b">{device.RFID}</td>
+                    <td className="py-1 px-2 border-b">
+                      {device.SoC_battery_voltage}
                     </td>
                     <td className="py-1 px-2 border-b">
-                      {device.horas_restantes}
+                      {formatDateTime(device.updated_at)}
                     </td>
-                    <td className="py-1 px-2 border-b">{formatDateTime(device.updated_at)}</td>
-                    <td className="py-1 px-2 border-b flex space-x-2 justify-center">
-                      <button
-                        className="text-blue-500 hover:text-blue-700"
-                        onClick={() =>
-                          navigate(`/devices/edit/${device.device_id}`)
-                        }
-                      >
-                        <i className="fas fa-edit"></i>
-                      </button>
+                    <td className="py-2 px-2 flex space-x-2 justify-center">
                       <Link
-                        to={`/dashboard/device/detail/${device.device_id}`}
+                        to={`/dashboard/device/detail/${device.id}`}
                         className="text-green-500 hover:text-green-700"
                       >
                         <i className="fas fa-info-circle"></i>
@@ -201,7 +204,6 @@ const Devices = () => {
       </div>
     </div>
   );
-
 };
 
 export default Devices;

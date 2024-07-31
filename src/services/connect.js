@@ -1,16 +1,12 @@
 import axios from "axios";
 import { BASE_URL } from "./data";
 
-// Headers de conexão
-const headers = {
-  "Content-Type": "application/json",
-  Authorization: "",
-};
-
-// Criação da instância global do axios com headers
+// Criação da instância global do axios com headers padrão
 const api = axios.create({
   baseURL: BASE_URL,
-  headers,
+  headers: {
+    "Content-Type": "application/json",
+  },
 });
 
 // Funções de manipulação do localStorage
@@ -55,12 +51,7 @@ const updateAuthorizationHeader = (token) => {
 const signInRequest = async (username, password) => {
   try {
     const response = await api.post("/token/", { username, password });
-    if (
-      response &&
-      response.data &&
-      response.data.access &&
-      response.data.refresh
-    ) {
+    if (response?.data?.access && response?.data?.refresh) {
       updateAuthorizationHeader(response.data.access);
       return response.data;
     } else {
@@ -91,8 +82,7 @@ const refreshTokenRequest = async (refreshToken) => {
     const response = await api.post("/token/refresh/", {
       refresh: refreshToken,
     });
-
-    if (response && response.data && response.data.access) {
+    if (response?.data?.access) {
       updateAuthorizationHeader(response.data.access);
       return response.data;
     } else {
@@ -112,11 +102,7 @@ const verifyTokenRequest = async (token) => {
   }
   try {
     const response = await api.post("/token/verify/", { token });
-    if (response && response.data) {
-      return response.data;
-    } else {
-      throw new Error("Invalid response structure");
-    }
+    return response?.data || false;
   } catch (error) {
     console.error("Token verification failed:", error);
     return false;
@@ -130,14 +116,19 @@ const blacklistTokenRequest = async (token) => {
     return false;
   }
   try {
-    const response = await api.post("/token/blacklist/", { token });
-    if (response && response.data) {
-      return response.data;
-    } else {
-      throw new Error("Invalid response structure");
-    }
+    const response = await api.post("/token/blacklist/", { refresh: token });
+    return response?.data || false;
   } catch (error) {
     console.error("Token blacklist failed:", error);
+    if (error.response) {
+      console.error("Error Response Data:", error.response.data);
+      console.error("Error Response Status:", error.response.status);
+      console.error("Error Response Headers:", error.response.headers);
+    } else if (error.request) {
+      console.error("Error Request:", error.request);
+    } else {
+      console.error("Error Message:", error.message);
+    }
     return false;
   }
 };

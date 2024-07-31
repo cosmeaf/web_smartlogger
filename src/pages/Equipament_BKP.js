@@ -1,11 +1,10 @@
-import React, { useEffect, useState, useCallback } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { format } from "date-fns";
 import HeaderLoggedIn from "../components/HeaderLoggedIn";
 import LoadPage from "../components/LoadPage";
 import Breadcrumb from "../components/Breadcrumb";
 import DeleteEquipamentModal from "../components/DeleteEquipamentModal";
-import ProgressBar from "../components/ProgressBar";
 import api from "../services/api";
 
 const Equipament = () => {
@@ -15,7 +14,6 @@ const Equipament = () => {
   const [itemsPerPage, setItemsPerPage] = useState(10);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [selectedEquipamentId, setSelectedEquipamentId] = useState(null);
-  const [error, setError] = useState(null);
   const navigate = useNavigate();
 
   const breadcrumbItems = [
@@ -28,28 +26,22 @@ const Equipament = () => {
     return format(date, "dd/MM/yyyy HH:mm:ss");
   };
 
-  const fetchEquipament = useCallback(async () => {
-    try {
-      const response = await api.get("/equipament/");
-      setEquipament(response.data);
-      setError(null);
-    } catch (error) {
-      console.error("Failed to fetch equipment", error);
-      setError("Não foi possível carregar os dados dos equipamentos.");
-      if (error.response && error.response.status === 401) {
-        navigate("/login");
-      }
-    } finally {
-      setLoading(false);
-    }
-  }, [navigate]);
-
   useEffect(() => {
+    const fetchEquipament = async () => {
+      try {
+        const response = await api.get("/equipament/");
+        setEquipament(response.data);
+      } catch (error) {
+        console.error("Failed to fetch equipment", error);
+        if (error.response && error.response.status === 401) {
+          navigate("/login");
+        }
+      } finally {
+        setLoading(false);
+      }
+    };
     fetchEquipament();
-    const intervalId = setInterval(fetchEquipament, 60000); // Atualiza a cada 60 segundos
-
-    return () => clearInterval(intervalId); // Limpa o intervalo ao desmontar o componente
-  }, [fetchEquipament]);
+  }, [navigate]);
 
   // Lógica para itens da página atual
   const indexOfLastItem = currentPage * itemsPerPage;
@@ -74,14 +66,7 @@ const Equipament = () => {
   return (
     <>
       {loading && <LoadPage />}
-      {error && <div className="error-message">{error}</div>}
       <HeaderLoggedIn />
-      <ProgressBar
-        color="#f39c12"
-        size="2px"
-        second={10}
-        onComplete={fetchEquipament}
-      />
       <div className="container-fluid mx-auto my-2">
         <div className="flex justify-between items-center mb-3">
           <h1 className="text-xl font-bold">
@@ -198,45 +183,44 @@ const Equipament = () => {
                 id="itemsPerPage"
                 value={itemsPerPage}
                 onChange={handleItemsPerPageChange}
-                className="border rounded px-2 py-1"
+                className="border rounded p-1"
               >
-                <option value={5}>5</option>
                 <option value={10}>10</option>
-                <option value={15}>15</option>
-                <option value={20}>20</option>
+                <option value={30}>30</option>
+                <option value={50}>50</option>
+                <option value={100}>100</option>
               </select>
             </div>
-            <div>
-              <nav>
-                <ul className="pagination">
-                  {pageNumbers.map((number) => (
-                    <li key={number} className="page-item">
-                      <button
-                        onClick={() => paginate(number)}
-                        className={`page-link ${
-                          number === currentPage ? "bg-blue-500 text-white" : ""
-                        }`}
-                      >
-                        {number}
-                      </button>
-                    </li>
-                  ))}
-                </ul>
-              </nav>
-            </div>
+            <nav className="flex space-x-1">
+              {pageNumbers.map((number) => (
+                <button
+                  key={number}
+                  onClick={() => paginate(number)}
+                  className={`px-2 py-1 rounded ${
+                    currentPage === number
+                      ? "bg-blue-500 text-white"
+                      : "bg-gray-200"
+                  }`}
+                >
+                  {number}
+                </button>
+              ))}
+            </nav>
           </div>
         </div>
-        {showDeleteModal && (
-          <DeleteEquipamentModal
-            id={selectedEquipamentId}
-            onClose={() => setShowDeleteModal(false)}
-            onDelete={() => {
-              fetchEquipament();
-              setShowDeleteModal(false);
-            }}
-          />
-        )}
       </div>
+
+      <DeleteEquipamentModal
+        show={showDeleteModal}
+        onHide={() => setShowDeleteModal(false)}
+        onDelete={async () => {
+          await api.delete(`/equipament/${selectedEquipamentId}/`);
+          setEquipament(
+            equipament.filter((item) => item.id !== selectedEquipamentId)
+          );
+          setShowDeleteModal(false);
+        }}
+      />
     </>
   );
 };

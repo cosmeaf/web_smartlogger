@@ -1,75 +1,83 @@
+// src/components/Footer.js
 import React from "react";
-import { Container, Row, Col } from "react-bootstrap";
-import "./css/Footer.css";
+import packageJson from "../../package.json";
 
 const Footer = () => {
+  const currentYear = new Date().getFullYear();
+  const creationYear = 2023; // Substitua pelo ano de criação da aplicação
+  const version = packageJson.version;
+
   return (
-    <footer className="footer bg-dark text-white py-4">
-      <Container>
-        <Row>
-          <Col md={3}>
-            <h5>Política</h5>
-            <ul className="list-unstyled">
+    <footer className="bg-gray-800 text-white py-4">
+      <div className="container mx-auto">
+        <div className="flex flex-wrap">
+          <div className="w-full md:w-1/4 px-4">
+            <h5 className="font-bold mb-2">Política</h5>
+            <ul className="list-none">
               <li>
-                <a href="#privacy" className="text-white">
+                <a href="#privacy" className="text-white hover:underline">
                   Política de Privacidade
                 </a>
               </li>
               <li>
-                <a href="#lgpd" className="text-white">
+                <a href="#lgpd" className="text-white hover:underline">
                   LGPD
                 </a>
               </li>
             </ul>
-          </Col>
-          <Col md={3}>
-            <h5>Empresa</h5>
-            <ul className="list-unstyled">
+          </div>
+          <div className="w-full md:w-1/4 px-4">
+            <h5 className="font-bold mb-2">Empresa</h5>
+            <ul className="list-none">
               <li>Nome da Empresa</li>
               <li>Telefone: (xx) xxxx-xxxx</li>
               <li>Email: contato@empresa.com</li>
             </ul>
-          </Col>
-          <Col md={3}>
-            <h5>Sites</h5>
-            <ul className="list-unstyled">
+          </div>
+          <div className="w-full md:w-1/4 px-4">
+            <h5 className="font-bold mb-2">Sites</h5>
+            <ul className="list-none">
               <li>
-                <a href="#site1" className="text-white">
+                <a href="#site1" className="text-white hover:underline">
                   Site da Empresa 1
                 </a>
               </li>
               <li>
-                <a href="#site2" className="text-white">
+                <a href="#site2" className="text-white hover:underline">
                   Site da Empresa 2
                 </a>
               </li>
             </ul>
-          </Col>
-          <Col md={3}>
-            <h5>Institucional</h5>
-            <ul className="list-unstyled">
+          </div>
+          <div className="w-full md:w-1/4 px-4">
+            <h5 className="font-bold mb-2">Institucional</h5>
+            <ul className="list-none">
               <li>
-                <a href="#about" className="text-white">
+                <a href="#about" className="text-white hover:underline">
                   Sobre Nós
                 </a>
               </li>
               <li>
-                <a href="#careers" className="text-white">
+                <a href="#careers" className="text-white hover:underline">
                   Carreiras
                 </a>
               </li>
             </ul>
-          </Col>
-        </Row>
-        <Row className="text-center mt-4">
-          <Col>
-            <p className="mb-0">
-              &copy; {new Date().getFullYear()} Nome da Empresa. Todos os
-              direitos reservados.
-            </p>
-          </Col>
-        </Row>
-      </Container>
+          </div>
+        </div>
+        <div className="text-center mt-4">
+          <p className="mb-0">
+            &copy; {creationYear} - {currentYear} - versão {version} by{" "}
+            <a
+              href="https://lexlam.com.br"
+              className="text-white hover:underline"
+            >
+              Lexlam Electronics Of Brazil
+            </a>
+            . Todos os direitos reservados.
+          </p>
+        </div>
+      </div>
     </footer>
   );
 };

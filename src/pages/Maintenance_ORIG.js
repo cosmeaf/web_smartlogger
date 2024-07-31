@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import HeaderLoggedIn from "../components/HeaderLoggedIn";
 import LoadPage from "../components/LoadPage";
-import Breadcrumb from "../components/Breadcrumb";
 import CreateMaintenanceModal from "../components/CreateMaintenanceModal";
 import api from "../services/api";
 
@@ -28,7 +27,6 @@ const Maintenance = () => {
     const fetchMaintenances = async () => {
       try {
         const response = await api.get(`/maintenance/?equipament_id=${id}`);
-        console.log(response.data);
         setMaintenances(response.data);
       } catch (error) {
         console.error("Failed to fetch maintenances", error);
@@ -43,11 +41,6 @@ const Maintenance = () => {
       fetchMaintenances();
     }
   }, [id]);
-
-  const breadcrumbItems = [
-    { name: "Dashboard", link: "/dashboard" },
-    { name: "Maintenance" },
-  ];
 
   const handleCreateMaintenance = (newMaintenance) => {
     setMaintenances((prevMaintenances) => [
@@ -118,9 +111,8 @@ const Maintenance = () => {
         <div className="flex justify-between items-center mb-3">
           <h6 className="text-lg font-bold">
             Manutenções | Equipamento:{" "}
-            {equipament ? equipament.device.device_id : "Carregando..."}
+            {equipament ? equipament.device : "Carregando..."}
           </h6>
-
           <button
             className="inline-flex items-center px-3 py-2 bg-blue-500 text-white text-xs font-medium rounded hover:bg-blue-700"
             onClick={() => setShowCreateModal(true)}
@@ -128,7 +120,6 @@ const Maintenance = () => {
             <i className="fas fa-plus mr-1"></i> Cadastrar Manutenção
           </button>
         </div>
-        <Breadcrumb items={breadcrumbItems} />
 
         <div className="w-full bg-white shadow-lg rounded-lg p-4 overflow-auto">
           <div className="flex justify-center">
@@ -152,10 +143,7 @@ const Maintenance = () => {
                       maintenance
                     );
                     return (
-                      <tr
-                        key={index}
-                        className="border-t hover:bg-gray-100 text-center"
-                      >
+                      <tr key={index} className="border-t hover:bg-gray-100">
                         <td className="py-1 px-2 border-b" colSpan="7">
                           Invalid Maintenance Data
                         </td>
@@ -163,10 +151,7 @@ const Maintenance = () => {
                     );
                   }
                   return (
-                    <tr
-                      key={index}
-                      className="border-t hover:bg-gray-100 text-center"
-                    >
+                    <tr key={index} className="border-t hover:bg-gray-100">
                       <td className="py-1 px-2 border-b">{maintenance.name}</td>
                       <td className="py-1 px-2 border-b">
                         <input
@@ -189,7 +174,7 @@ const Maintenance = () => {
                       <td className="py-1 px-2 border-b">
                         <input
                           type="number"
-                          value={maintenance.horas_uso_peca}
+                          value={maintenance.usage_hours}
                           onChange={(e) =>
                             handleUpdateField(
                               maintenance.id,
@@ -223,7 +208,7 @@ const Maintenance = () => {
                       <td className="py-1 px-2 border-b">
                         {maintenance.remaining_hours}
                       </td>
-                      <td className="py-3 px-2 flex justify-center space-x-2">
+                      <td className="py-1 px-2 border-b flex justify-center space-x-2">
                         <button
                           className="text-red-500 hover:text-red-700"
                           onClick={() =>

@@ -5,16 +5,16 @@ import HeaderLoggedIn from "../components/HeaderLoggedIn";
 import api from "../services/api";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  faTachometerAlt,
   faTractor,
   faFileAlt,
   faHistory,
   faChartBar,
+  faUser,
 } from "@fortawesome/free-solid-svg-icons";
 import "../components/css/Dashboard.css";
 
 const Dashboard = () => {
-  const [totalDevices, setTotalDevices] = useState(0);
+  const [totalOperators, setTotalOperators] = useState(0);
   const [totalEquipament, setTotalEquipament] = useState(0);
   const [totalReports, setTotalReports] = useState(0);
   const [totalHistoricalLogs, setTotalHistoricalLogs] = useState(0);
@@ -22,15 +22,15 @@ const Dashboard = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const fetchDevices = async () => {
+    const fetchOperators = async () => {
       try {
-        const response = await api.get("/device/");
-        setTotalDevices(response.data.length);
+        const response = await api.get("/profile/");
+        setTotalOperators(response.data.length);
       } catch (error) {
-        console.error("Failed to fetch devices", error);
+        console.error("Failed to fetch operators", error);
       }
     };
-    fetchDevices();
+    fetchOperators();
   }, []);
 
   useEffect(() => {
@@ -83,10 +83,10 @@ const Dashboard = () => {
 
   const cards = [
     {
-      icon: faTachometerAlt,
-      name: "Total Dispositivos",
-      value: totalDevices,
-      onClick: () => navigate("/dashboard/devices"),
+      icon: faUser,
+      name: "Total Operadores",
+      value: totalOperators,
+      onClick: () => navigate("/dashboard/operator"),
     },
     {
       icon: faTractor,

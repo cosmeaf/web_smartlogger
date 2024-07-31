@@ -28,21 +28,18 @@ const AuthProvider = ({ children }) => {
   const logoutUser = useCallback(async () => {
     try {
       if (refreshToken) {
-        const response = await blacklistTokenRequest(refreshToken);
-        if (response.status === 200) {
-          console.log("Token successfully blacklisted.");
-        } else {
-          console.error("Failed to blacklist token:", response);
-        }
+        await blacklistTokenRequest(refreshToken);
+        console.log("Token successfully blacklisted.");
       }
     } catch (error) {
       console.error("Failed to blacklist token", error);
+    } finally {
+      setAccessToken(null);
+      setRefreshToken(null);
+      setUser(null);
+      deleteUserLocalStorage();
+      navigate("/signin");
     }
-    setAccessToken(null);
-    setRefreshToken(null);
-    setUser(null);
-    deleteUserLocalStorage();
-    navigate("/signin");
   }, [refreshToken, navigate]);
 
   const refreshUserToken = useCallback(async () => {
@@ -77,16 +74,20 @@ const AuthProvider = ({ children }) => {
   }, [accessToken, refreshUserToken]);
 
   const signIn = async (username, password) => {
-    const response = await signInRequest(username, password);
-    if (response) {
-      setAccessToken(response.access);
-      setRefreshToken(response.refresh);
-      setUser(response.user);
-      saveUserLocalStorage(response.access, response.refresh, response.user);
-      updateAuthorizationHeader(response.access);
-      navigate("/dashboard");
-    } else {
-      console.error("signIn failed, response:", response);
+    try {
+      const response = await signInRequest(username, password);
+      if (response) {
+        setAccessToken(response.access);
+        setRefreshToken(response.refresh);
+        setUser(response.user);
+        saveUserLocalStorage(response.access, response.refresh, response.user);
+        updateAuthorizationHeader(response.access);
+        navigate("/dashboard");
+      } else {
+        console.error("signIn failed, response:", response);
+      }
+    } catch (error) {
+      console.error("Failed to sign in", error);
     }
   };
 
