@@ -15,6 +15,12 @@ const Maintenance = () => {
   const [showCreateModal, setShowCreateModal] = useState(false);
   const itemsPerPage = 10;
 
+  const breadcrumbItems = [
+    { name: "Dashboard", link: "/dashboard" },
+    { name: "Equipament", link: "/dashboard/equipament" },
+    { name: "Maintenance" },
+  ];
+
   useEffect(() => {
     const fetchEquipament = async () => {
       try {
@@ -28,7 +34,6 @@ const Maintenance = () => {
     const fetchMaintenances = async () => {
       try {
         const response = await api.get(`/maintenance/?equipament_id=${id}`);
-        console.log(response.data);
         setMaintenances(response.data);
       } catch (error) {
         console.error("Failed to fetch maintenances", error);
@@ -44,11 +49,6 @@ const Maintenance = () => {
     }
   }, [id]);
 
-  const breadcrumbItems = [
-    { name: "Dashboard", link: "/dashboard" },
-    { name: "Maintenance" },
-  ];
-
   const handleCreateMaintenance = (newMaintenance) => {
     setMaintenances((prevMaintenances) => [
       ...prevMaintenances,
@@ -58,6 +58,7 @@ const Maintenance = () => {
 
   const handleUpdateField = async (maintenanceId, field, value) => {
     try {
+      // Atualizar o estado localmente
       setMaintenances((prevMaintenances) =>
         prevMaintenances.map((maintenance) =>
           maintenance.id === maintenanceId
@@ -66,9 +67,16 @@ const Maintenance = () => {
         )
       );
 
-      await api.patch(`/maintenance/${maintenanceId}/`, { [field]: value });
+      // Atualizar o campo na API
+      const response = await api.patch(`/maintenance/${maintenanceId}/`, {
+        [field]: value,
+      });
+      console.log("Update successful:", response.data);
     } catch (error) {
       console.error("Failed to update maintenance", error);
+      if (error.response) {
+        console.error("Response data:", error.response.data);
+      }
     }
   };
 
@@ -117,7 +125,7 @@ const Maintenance = () => {
       <div className="container-fluid mx-auto my-4">
         <div className="flex justify-between items-center mb-3">
           <h6 className="text-lg font-bold">
-            Manutenções | Equipamento:{" "}
+            Manutenções | Equipamento:
             {equipament ? equipament.device.device_id : "Carregando..."}
           </h6>
 

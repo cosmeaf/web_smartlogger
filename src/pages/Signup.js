@@ -40,21 +40,22 @@ const Signup = () => {
       };
 
       const response = await api.post("/register/", data);
-
-      if (response.code && response.code !== 200) {
-        const errorMessage = Object.values(response.message).flat().join(", ");
-        setError(errorMessage);
-      } else {
+      if (response.status === 201) {
         setSuccess("Registration successful!");
         setFirstName("");
         setLastName("");
         setEmail("");
         setPassword("");
         setRepeatPassword("");
+        setLoading(false);
       }
     } catch (err) {
-      setError("Failed to register. Please try again.");
-      console.error("Signup error:", err);
+      if (err.response && err.response.data) {
+        const errorMessage = Object.values(err.response.data).flat().join(", ");
+        setError(errorMessage);
+      } else {
+        setError("Failed to register. Please try again.");
+      }
     } finally {
       setLoading(false);
     }
@@ -80,6 +81,7 @@ const Signup = () => {
             </label>
             <input
               type="text"
+              name="firstName"
               className="w-full p-2 mt-1 border rounded-md focus:ring focus:ring-blue-500"
               required
               value={firstName}
@@ -92,6 +94,7 @@ const Signup = () => {
             </label>
             <input
               type="text"
+              name="lastName"
               className="w-full p-2 mt-1 border rounded-md focus:ring focus:ring-blue-500"
               required
               value={lastName}
@@ -104,6 +107,7 @@ const Signup = () => {
             </label>
             <input
               type="email"
+              name="email"
               className="w-full p-2 mt-1 border rounded-md focus:ring focus:ring-blue-500"
               required
               value={email}
@@ -117,6 +121,7 @@ const Signup = () => {
             <div className="relative">
               <input
                 type={showPassword ? "text" : "password"}
+                name="password"
                 className="w-full p-2 mt-1 border rounded-md focus:ring focus:ring-blue-500"
                 required
                 value={password}
@@ -138,6 +143,7 @@ const Signup = () => {
             <div className="relative">
               <input
                 type={showRepeatPassword ? "text" : "password"}
+                name="repeatPassword"
                 className="w-full p-2 mt-1 border rounded-md focus:ring focus:ring-blue-500"
                 required
                 value={repeatPassword}

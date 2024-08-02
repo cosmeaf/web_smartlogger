@@ -2,12 +2,17 @@ import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import "../components/css/ProgressBar.css";
 
-const ProgressBar = ({ color = "#3498db", size = "4px", second = 10, onComplete }) => {
+const ProgressBar = ({
+  color = "#3498db",
+  size = "4px",
+  second = 60,
+  onComplete,
+}) => {
   const [progress, setProgress] = useState(0);
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setProgress((prev) => (prev >= 100 ? 0 : prev + (100 / second)));
+      setProgress((prev) => (prev >= 100 ? 0 : prev + 110 / second));
     }, 1000);
 
     const timeout = setTimeout(() => {

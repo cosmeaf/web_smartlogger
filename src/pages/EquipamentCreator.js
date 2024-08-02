@@ -9,23 +9,22 @@ const EquipamentCreator = () => {
   const [equipments, setEquipments] = useState([]);
   const [formData, setFormData] = useState({
     device_id: "",
-    horimetro_inicialMaquina: 0,
-    nome: "",
-    numero_serie: "",
-    ano: new Date().getFullYear(),
-    modelo: "N/A",
-    ponto_medicao: "N/A",
-    combustivel: "DIESEL",
-    numero_pulsos: 0,
-    perimetro_pneu: 0.0,
-    horas_disponiveis_mes: 0.0,
-    consumo_medio: 0.0,
-    alerta_velocidade: 0.0,
-    alerta_temperatura: 0.0,
-    alerta_shock: 0.0,
-    horas_efetivas_hodometro: "HODOMETRO",
-    hodometro: 0.0,
-    obs: "",
+    begin_hour_machine: 0,
+    name: "",
+    year: new Date().getFullYear(),
+    model: "N/A",
+    measuring_point: "N/A",
+    fuel: "DIESEL",
+    pulse_number: 0,
+    tire_perimeter: 0.0,
+    available_hours_per_month: 0.0,
+    average_consumption: 0.0,
+    speed_alert: 0.0,
+    temperature_alert: 0.0,
+    shock_alert: 0.0,
+    effective_hours_odometer: "HODOMETRO",
+    odometer: 0.0,
+    notes: "",
   });
   const [errors, setErrors] = useState({});
   const navigate = useNavigate();
@@ -71,8 +70,8 @@ const EquipamentCreator = () => {
 
     console.log("Submitting form with data:", dataToSubmit);
     try {
+      // eslint-disable-next-line no-unused-vars
       const response = await api.post("/equipament/", dataToSubmit);
-      console.log("Response from server:", response);
       navigate("/dashboard/equipament");
     } catch (error) {
       if (error.response && error.response.data) {
@@ -133,44 +132,28 @@ const EquipamentCreator = () => {
                 <label className="text-sm">Nome</label>
                 <input
                   type="text"
-                  name="nome"
-                  value={formData.nome}
+                  name="name"
+                  value={formData.name}
                   onChange={handleChange}
                   className="form-control text-sm"
                   required
                 />
-                {errors.nome && (
-                  <div className="text-red-500 text-sm">{errors.nome}</div>
-                )}
-              </div>
-              <div className="form-group">
-                <label className="text-sm">Número de Série</label>
-                <input
-                  type="text"
-                  name="numero_serie"
-                  value={formData.numero_serie}
-                  onChange={handleChange}
-                  className="form-control text-sm"
-                  required
-                />
-                {errors.numero_serie && (
-                  <div className="text-red-500 text-sm">
-                    {errors.numero_serie}
-                  </div>
+                {errors.name && (
+                  <div className="text-red-500 text-sm">{errors.name}</div>
                 )}
               </div>
               <div className="form-group">
                 <label className="text-sm">Ano</label>
                 <input
                   type="number"
-                  name="ano"
-                  value={formData.ano}
+                  name="year"
+                  value={formData.year}
                   onChange={handleChange}
                   className="form-control text-sm"
                   required
                 />
-                {errors.ano && (
-                  <div className="text-red-500 text-sm">{errors.ano}</div>
+                {errors.year && (
+                  <div className="text-red-500 text-sm">{errors.year}</div>
                 )}
               </div>
               <div className="form-group">
@@ -178,15 +161,15 @@ const EquipamentCreator = () => {
                 <input
                   type="number"
                   step="0.01"
-                  name="horimetro_inicialMaquina"
-                  value={formData.horimetro_inicialMaquina}
+                  name="begin_hour_machine"
+                  value={formData.begin_hour_machine}
                   onChange={handleChange}
                   className="form-control text-sm"
                   required
                 />
-                {errors.horimetro_inicialMaquina && (
+                {errors.begin_hour_machine && (
                   <div className="text-red-500 text-sm">
-                    {errors.horimetro_inicialMaquina}
+                    {errors.begin_hour_machine}
                   </div>
                 )}
               </div>
@@ -194,8 +177,8 @@ const EquipamentCreator = () => {
                 <label className="text-sm">Modelo</label>
                 <input
                   type="text"
-                  name="modelo"
-                  value={formData.modelo}
+                  name="model"
+                  value={formData.model}
                   onChange={handleChange}
                   className="form-control text-sm"
                 />
@@ -204,8 +187,8 @@ const EquipamentCreator = () => {
                 <label className="text-sm">Ponto de Medição</label>
                 <input
                   type="text"
-                  name="ponto_medicao"
-                  value={formData.ponto_medicao}
+                  name="measuring_point"
+                  value={formData.measuring_point}
                   onChange={handleChange}
                   className="form-control text-sm"
                 />
@@ -213,8 +196,8 @@ const EquipamentCreator = () => {
               <div className="form-group">
                 <label className="text-sm">Combustível</label>
                 <select
-                  name="combustivel"
-                  value={formData.combustivel}
+                  name="fuel"
+                  value={formData.fuel}
                   onChange={handleChange}
                   className="form-control text-sm"
                 >
@@ -228,8 +211,8 @@ const EquipamentCreator = () => {
                 <label className="text-sm">Número de Pulsos</label>
                 <input
                   type="number"
-                  name="numero_pulsos"
-                  value={formData.numero_pulsos}
+                  name="pulse_number"
+                  value={formData.pulse_number}
                   onChange={handleChange}
                   className="form-control text-sm"
                 />
@@ -239,8 +222,8 @@ const EquipamentCreator = () => {
                 <input
                   type="number"
                   step="0.01"
-                  name="perimetro_pneu"
-                  value={formData.perimetro_pneu}
+                  name="tire_perimeter"
+                  value={formData.tire_perimeter}
                   onChange={handleChange}
                   className="form-control text-sm"
                 />
@@ -250,8 +233,8 @@ const EquipamentCreator = () => {
                 <input
                   type="number"
                   step="0.01"
-                  name="horas_disponiveis_mes"
-                  value={formData.horas_disponiveis_mes}
+                  name="available_hours_per_month"
+                  value={formData.available_hours_per_month}
                   onChange={handleChange}
                   className="form-control text-sm"
                 />
@@ -263,8 +246,8 @@ const EquipamentCreator = () => {
                 <input
                   type="number"
                   step="0.01"
-                  name="consumo_medio"
-                  value={formData.consumo_medio}
+                  name="average_consumption"
+                  value={formData.average_consumption}
                   onChange={handleChange}
                   className="form-control text-sm"
                 />
@@ -274,8 +257,8 @@ const EquipamentCreator = () => {
                 <input
                   type="number"
                   step="0.01"
-                  name="alerta_velocidade"
-                  value={formData.alerta_velocidade}
+                  name="speed_alert"
+                  value={formData.speed_alert}
                   onChange={handleChange}
                   className="form-control text-sm"
                 />
@@ -285,8 +268,8 @@ const EquipamentCreator = () => {
                 <input
                   type="number"
                   step="0.01"
-                  name="alerta_temperatura"
-                  value={formData.alerta_temperatura}
+                  name="temperature_alert"
+                  value={formData.temperature_alert}
                   onChange={handleChange}
                   className="form-control text-sm"
                 />
@@ -296,8 +279,8 @@ const EquipamentCreator = () => {
                 <input
                   type="number"
                   step="0.01"
-                  name="alerta_shock"
-                  value={formData.alerta_shock}
+                  name="shock_alert"
+                  value={formData.shock_alert}
                   onChange={handleChange}
                   className="form-control text-sm"
                 />
@@ -305,8 +288,8 @@ const EquipamentCreator = () => {
               <div className="form-group">
                 <label className="text-sm">Horas Efetivas ou Hodômetro</label>
                 <select
-                  name="horas_efetivas_hodometro"
-                  value={formData.horas_efetivas_hodometro}
+                  name="effective_hours_odometer"
+                  value={formData.effective_hours_odometer}
                   onChange={handleChange}
                   className="form-control text-sm"
                 >
@@ -319,8 +302,8 @@ const EquipamentCreator = () => {
                 <input
                   type="number"
                   step="0.01"
-                  name="hodometro"
-                  value={formData.hodometro}
+                  name="odometer"
+                  value={formData.odometer}
                   onChange={handleChange}
                   className="form-control text-sm"
                 />
@@ -328,8 +311,8 @@ const EquipamentCreator = () => {
               <div className="form-group col-span-3">
                 <label className="text-sm">Observações</label>
                 <textarea
-                  name="obs"
-                  value={formData.obs}
+                  name="notes"
+                  value={formData.notes}
                   onChange={handleChange}
                   className="form-control text-sm"
                 />

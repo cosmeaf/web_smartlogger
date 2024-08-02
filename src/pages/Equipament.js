@@ -10,6 +10,7 @@ import api from "../services/api";
 
 const Equipament = () => {
   const [equipament, setEquipament] = useState([]);
+  const [maintenanceColors, setMaintenanceColors] = useState({});
   const [loading, setLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(10);
@@ -31,6 +32,7 @@ const Equipament = () => {
   const fetchEquipament = useCallback(async () => {
     try {
       const response = await api.get("/equipament/");
+      console.log("Contagem de página:", new Date().toLocaleString());
       setEquipament(response.data);
       setError(null);
     } catch (error) {
@@ -44,9 +46,42 @@ const Equipament = () => {
     }
   }, [navigate]);
 
+  const fetchMaintenance = async () => {
+    try {
+      const response = await api.get("/maintenance/");
+      // Lógica de cor
+      const colors = {};
+      response.data.forEach((maintenance) => {
+        if (maintenance.os) {
+          let color = "bg-yellow-100"; // Amarelo claro para manutenção ativa
+          const remainingHours = maintenance.remaining_hours;
+          if (remainingHours >= 0) {
+            color = "bg-yellow-100";
+          } else if (remainingHours >= -50) {
+            color = "bg-yellow-300"; // Amarelo
+          } else if (remainingHours >= -100) {
+            color = "bg-orange-300"; // Laranja claro
+          } else {
+            color = "bg-red-300"; // Vermelho
+          }
+          colors[maintenance.equipament] = color;
+        }
+      });
+
+      setMaintenanceColors(colors);
+    } catch (error) {
+      console.error("Failed to fetch Maintenance", error);
+    }
+  };
+
   useEffect(() => {
     fetchEquipament();
-    const intervalId = setInterval(fetchEquipament, 60000); // Atualiza a cada 60 segundos
+    fetchMaintenance();
+
+    const intervalId = setInterval(() => {
+      fetchEquipament();
+      fetchMaintenance();
+    }, 60000); // Atualiza a cada 60 segundos
 
     return () => clearInterval(intervalId); // Limpa o intervalo ao desmontar o componente
   }, [fetchEquipament]);
@@ -121,71 +156,73 @@ const Equipament = () => {
                 </tr>
               </thead>
               <tbody className="striped">
-                {currentItems.map((equip, index) => (
-                  <tr
-                    key={index}
-                    className="border-t hover:bg-gray-100 text-center"
-                  >
-                    <td className="py-1 px-2 border-b">
-                      {equip.device?.device_id}
-                    </td>
-                    <td className="py-1 px-2 border-b">{equip.nome}</td>
-                    <td className="py-1 px-2 border-b">{equip.modelo}</td>
-                    <td className="py-1 px-2 border-b">
-                      {equip.device?.velocidade_pico || "N/A"}
-                    </td>
-                    <td className="py-1 px-2 border-b">
-                      {equip.device?.temperatura_pico || "N/A"}
-                    </td>
-                    <td className="py-1 px-2 border-b">
-                      {equip.device?.impact || "N/A"}
-                    </td>
-                    <td className="py-1 px-2 border-b">
-                      {equip.device?.SoC_bateria || "N/A"}
-                    </td>
-                    <td className="py-1 px-2 border-b">
-                      {equip.device?.RFID || "N/A"}
-                    </td>
-                    <td className="py-1 px-2 border-b">
-                      {equip.horas_restantes || "N/A"}
-                    </td>
-                    <td className="py-1 px-2 border-b">
-                      {equip.horas_trabalhadas}
-                    </td>
-                    <td className="py-1 px-2 border-b">
-                      {formatDate(equip.updated_at)}
-                    </td>
-                    <td className="py-2 px-2 flex justify-center space-x-2">
-                      <Link
-                        to={`/dashboard/equipament/edit/${equip.id}`}
-                        className="text-blue-500 hover:text-blue-700"
-                      >
-                        <i className="fas fa-edit"></i>
-                      </Link>
-                      <Link
-                        to={`/dashboard/equipament/detail/${equip.id}`}
-                        className="text-gray-500 hover:text-gray-700"
-                      >
-                        <i className="fas fa-info-circle"></i>
-                      </Link>
-                      <Link
-                        to={`/dashboard/maintenance/${equip.id}`}
-                        className="text-green-500 hover:text-green-700"
-                      >
-                        <i className="fas fa-tools"></i>
-                      </Link>
-                      <button
-                        className="text-red-500 hover:text-red-700"
-                        onClick={() => {
-                          setSelectedEquipamentId(equip.id);
-                          setShowDeleteModal(true);
-                        }}
-                      >
-                        <i className="fas fa-trash"></i>
-                      </button>
-                    </td>
-                  </tr>
-                ))}
+                {currentItems.map((equip, index) => {
+                  const backgroundColor = maintenanceColors[equip.id] || "";
+
+                  return (
+                    <tr
+                      key={index}
+                      className={`border-t hover:bg-gray-100 text-center ${backgroundColor}`}
+                    >
+                      <td className="py-1 px-2 border-b">
+                        {equip.device?.device_id}
+                      </td>
+                      <td className="py-1 px-2 border-b">{equip.name}</td>
+                      <td className="py-1 px-2 border-b">{equip.model}</td>
+                      <td className="py-1 px-2 border-b">
+                        {equip.device?.velocidade_pico || "N/A"}
+                      </td>
+                      <td className="py-1 px-2 border-b">
+                        {equip.device?.temperatura_pico || "N/A"}
+                      </td>
+                      <td className="py-1 px-2 border-b">
+                        {equip.device?.impact || "N/A"}
+                      </td>
+                      <td className="py-1 px-2 border-b">
+                        {equip.device?.SoC_battery_voltage || "N/A"}
+                      </td>
+                      <td className="py-1 px-2 border-b">
+                        {equip.device?.RFID || "N/A"}
+                      </td>
+                      <td className="py-1 px-2 border-b">
+                        {equip.available_hours_per_month || "N/A"}
+                      </td>
+                      <td className="py-1 px-2 border-b">{equip.work_hour}</td>
+                      <td className="py-1 px-2 border-b">
+                        {formatDate(equip.updated_at)}
+                      </td>
+                      <td className="py-2 px-2 flex justify-center space-x-2">
+                        <Link
+                          to={`/dashboard/equipament/edit/${equip.id}`}
+                          className="text-blue-500 hover:text-blue-700"
+                        >
+                          <i className="fas fa-edit"></i>
+                        </Link>
+                        <Link
+                          to={`/dashboard/equipament/detail/${equip.id}`}
+                          className="text-gray-500 hover:text-gray-700"
+                        >
+                          <i className="fas fa-info-circle"></i>
+                        </Link>
+                        <Link
+                          to={`/dashboard/maintenance/${equip.id}`}
+                          className="text-green-500 hover:text-green-700"
+                        >
+                          <i className="fas fa-tools"></i>
+                        </Link>
+                        <button
+                          className="text-red-500 hover:text-red-700"
+                          onClick={() => {
+                            setSelectedEquipamentId(equip.id);
+                            setShowDeleteModal(true);
+                          }}
+                        >
+                          <i className="fas fa-trash"></i>
+                        </button>
+                      </td>
+                    </tr>
+                  );
+                })}
               </tbody>
             </table>
           </div>
@@ -232,6 +269,7 @@ const Equipament = () => {
             onClose={() => setShowDeleteModal(false)}
             onDelete={() => {
               fetchEquipament();
+              fetchMaintenance();
               setShowDeleteModal(false);
             }}
           />
