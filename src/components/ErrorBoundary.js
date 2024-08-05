@@ -22,7 +22,7 @@ class ErrorBoundary extends Component {
           <div className="card p-4">
             <h1 className="card-title">Something went wrong.</h1>
             <p className="card-text">
-              We're sorry, an unexpected error has occurred.
+              We&apos;re sorry, an unexpected error has occurred.
             </p>
           </div>
         </div>

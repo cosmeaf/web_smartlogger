@@ -32,7 +32,8 @@ const Equipament = () => {
   const fetchEquipament = useCallback(async () => {
     try {
       const response = await api.get("/equipament/");
-      console.log("Contagem de página:", new Date().toLocaleString());
+      // console.log("Contagem de página:", new Date().toLocaleString());
+      // console.log(response.data);
       setEquipament(response.data);
       setError(null);
     } catch (error) {
@@ -85,6 +86,16 @@ const Equipament = () => {
 
     return () => clearInterval(intervalId); // Limpa o intervalo ao desmontar o componente
   }, [fetchEquipament]);
+
+  const handleDelete = async (equipamentId) => {
+    try {
+      await api.delete(`/equipament/${equipamentId}/`);
+      fetchEquipament();
+    } catch (error) {
+      console.error("Failed to delete equipament", error);
+      setError("Não foi possível excluir o equipamento.");
+    }
+  };
 
   // Lógica para itens da página atual
   const indexOfLastItem = currentPage * itemsPerPage;
@@ -212,10 +223,7 @@ const Equipament = () => {
                         </Link>
                         <button
                           className="text-red-500 hover:text-red-700"
-                          onClick={() => {
-                            setSelectedEquipamentId(equip.id);
-                            setShowDeleteModal(true);
-                          }}
+                          onClick={() => handleDelete(equip.id)}
                         >
                           <i className="fas fa-trash"></i>
                         </button>
